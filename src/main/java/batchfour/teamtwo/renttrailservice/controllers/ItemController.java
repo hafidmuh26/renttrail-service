@@ -4,7 +4,7 @@ import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.models.ItemModel;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
-import batchfour.teamtwo.renttrailservice.services.ItemService;
+import batchfour.teamtwo.renttrailservice.services.EntityService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +21,11 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private ItemService itemService;
+    private EntityService<Item, Integer> service;
 
     @PostMapping
     public ResponseMessage<ItemModel> add(@RequestBody @Valid ItemModel model) {
-        Item entity = itemService.save(new Item(model.getName(), model.getDescription(), model.getQuantity()));
+        Item entity = service.save(new Item(model.getName(), model.getDescription(), model.getQuantity()));
 
         ModelMapper modelMapper = new ModelMapper();
         ItemModel data = modelMapper.map(entity, ItemModel.class);
@@ -34,7 +34,7 @@ public class ItemController {
 
     @DeleteMapping("/{id}")
     public ResponseMessage<ItemModel> removeById(@PathVariable Integer id) {
-        Item entity = itemService.removeById(id);
+        Item entity = service.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
         ItemModel data = modelMapper.map(entity, ItemModel.class);
@@ -44,7 +44,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ResponseMessage<ItemModel> findById(@PathVariable Integer id) {
-        Item entity = itemService.findById(id);
+        Item entity = service.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
         ItemModel data = modelMapper.map(entity, ItemModel.class);
@@ -68,7 +68,7 @@ public class ItemController {
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
-        Page<Item> pageItems = itemService.findAll(entity, page, size, direction);
+        Page<Item> pageItems = service.findAll(entity, page, size, direction);
         List<Item> items = pageItems.toList();
 
         ModelMapper modelMapper = new ModelMapper();
