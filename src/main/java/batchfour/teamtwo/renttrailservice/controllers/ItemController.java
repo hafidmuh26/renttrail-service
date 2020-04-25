@@ -4,7 +4,7 @@ import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.models.ItemModel;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
-import batchfour.teamtwo.renttrailservice.services.EntityService;
+import batchfour.teamtwo.renttrailservice.services.ItemService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private EntityService<Item, Integer> service;
+    private ItemService service;
 
     @PostMapping
     public ResponseMessage<ItemModel> add(@RequestBody @Valid ItemModel model) {
