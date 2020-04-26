@@ -1,20 +1,45 @@
 package batchfour.teamtwo.renttrailservice.models;
 
-public class ItemModel {
+import batchfour.teamtwo.renttrailservice.validation.annotations.MaxLength;
+import batchfour.teamtwo.renttrailservice.validation.annotations.MinLength;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class ItemRequest {
 
     private Integer id;
-    private String name;
-    private String description;
-    private Integer quantity;
 
-    public ItemModel() {
+    @MinLength(3)
+    @MaxLength(20)
+    @NotBlank(message = "Name can't banlk!")
+    private String name;
+
+    @MinLength(3)
+    @MaxLength(50)
+    @NotBlank(message = "Description can't blank!")
+    private String description;
+
+    @NotNull(message = "Quantity can't Null")
+    private Integer quantity;
+    private String picture;
+
+    public ItemRequest() {
     }
 
-    public ItemModel(Integer id, String name, String description, Integer quantity) {
+    public ItemRequest(Integer id, String name, String description, Integer quantity, String picture) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Integer getId() {

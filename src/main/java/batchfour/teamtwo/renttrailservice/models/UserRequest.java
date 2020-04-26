@@ -1,24 +1,52 @@
 package batchfour.teamtwo.renttrailservice.models;
 
-public class UserModel {
+import batchfour.teamtwo.renttrailservice.validation.annotations.MaxLength;
+import batchfour.teamtwo.renttrailservice.validation.annotations.MinLength;
+import javax.validation.constraints.NotBlank;
+
+public class UserRequest {
 
     private Integer id;
-    private String name;
-    private String nik;
-    private String noHp;
-    private String address;
-    private String gender;
 
-    public UserModel() {
+    @MinLength(3)
+    @MaxLength(20)
+    @NotBlank(message = "Name can't blankk!")
+    private String name;
+
+    @MaxLength(16)
+    @MinLength(16)
+    @NotBlank(message = "Nik can't blankk!")
+    private String nik;
+
+    @NotBlank(message = "Number Handphone can't blank!")
+    private String noHp;
+
+    @NotBlank(message = "Address can't blankk!")
+    private String address;
+
+    @NotBlank(message = "Gender can't blank")
+    private String gender;
+    private String picture;
+
+    public UserRequest() {
     }
 
-    public UserModel(Integer id, String name, String nik, String noHp, String address, String gender) {
+    public UserRequest(Integer id, String name, String nik, String noHp, String address, String gender, String picture) {
         this.id = id;
         this.name = name;
         this.nik = nik;
         this.noHp = noHp;
         this.address = address;
         this.gender = gender;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Integer getId() {

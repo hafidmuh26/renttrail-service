@@ -2,7 +2,7 @@ package batchfour.teamtwo.renttrailservice.controllers;
 
 
 import batchfour.teamtwo.renttrailservice.entities.Outlet;
-import batchfour.teamtwo.renttrailservice.models.OutletModel;
+import batchfour.teamtwo.renttrailservice.models.OutletRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
 import batchfour.teamtwo.renttrailservice.services.OutletService;
@@ -27,18 +27,18 @@ public class OutletController {
     private OutletService service;
 
     @PostMapping
-    public ResponseMessage<OutletModel> save(@RequestBody @Valid OutletModel model) {
+    public ResponseMessage<OutletRequest> save(@RequestBody @Valid OutletRequest model) {
         Outlet entity = service.save(new Outlet(model.getName(), model.getTelp(), model.getAddress()));
 
         ModelMapper modelMapper = new ModelMapper();
-        OutletModel data = modelMapper.map(entity, OutletModel.class);
+        OutletRequest data = modelMapper.map(entity, OutletRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<OutletModel> edit(@PathVariable Integer id,
-                                             @RequestBody @Valid OutletModel model) {
+    public ResponseMessage<OutletRequest> edit(@PathVariable Integer id,
+                                               @RequestBody @Valid OutletRequest model) {
 
         ModelMapper modelMapper = new ModelMapper();
 
@@ -49,34 +49,34 @@ public class OutletController {
         entity.setAddress(model.getAddress());
         entity.setTelp(model.getTelp());
 
-        OutletModel data = modelMapper.map(entity, OutletModel.class);
+        OutletRequest data = modelMapper.map(entity, OutletRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<OutletModel> findById(@PathVariable Integer id) {
+    public ResponseMessage<OutletRequest> findById(@PathVariable Integer id) {
         Outlet entity = service.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        OutletModel data = modelMapper.map(entity, OutletModel.class);
+        OutletRequest data = modelMapper.map(entity, OutletRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<OutletModel> removeById(@PathVariable Integer id) {
+    public ResponseMessage<OutletRequest> removeById(@PathVariable Integer id) {
 
         Outlet entity = service.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        OutletModel data = modelMapper.map(entity, OutletModel.class);
+        OutletRequest data = modelMapper.map(entity, OutletRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<OutletModel>> findAll(
+    public ResponseMessage<PageableList<OutletRequest>> findAll(
             @RequestParam(required = false) String name, String telp, String address,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
@@ -95,10 +95,10 @@ public class OutletController {
         List<Outlet> outlets = pageOutlet.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<OutletModel>>() {
+        Type type = new TypeToken<List<OutletRequest>>() {
         }.getType();
-        List<OutletModel> outletModels = modelMapper.map(outlets,type);
-        PageableList<OutletModel> data = new PageableList(outletModels, pageOutlet.getNumber(), pageOutlet.getSize(), pageOutlet.getTotalPages());
+        List<OutletRequest> outletRequests = modelMapper.map(outlets,type);
+        PageableList<OutletRequest> data = new PageableList(outletRequests, pageOutlet.getNumber(), pageOutlet.getSize(), pageOutlet.getTotalPages());
 
         return ResponseMessage.success(data);
 

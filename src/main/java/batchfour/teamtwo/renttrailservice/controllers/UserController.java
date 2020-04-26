@@ -3,7 +3,7 @@ package batchfour.teamtwo.renttrailservice.controllers;
 import batchfour.teamtwo.renttrailservice.entities.User;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
-import batchfour.teamtwo.renttrailservice.models.UserModel;
+import batchfour.teamtwo.renttrailservice.models.UserRequest;
 import batchfour.teamtwo.renttrailservice.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -23,59 +23,60 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseMessage<UserModel> save(@RequestBody @Valid UserModel model) {
-        User entity = service.save(new User(model.getName(), model.getNik(), model.getNoHp(), model.getAddress(), model.getGender()));
+    public ResponseMessage<UserRequest> save(@RequestBody @Valid UserRequest model) {
+        User entity = service.save(new User(model.getName(), model.getNik(), model.getNoHp(), model.getAddress(), model.getGender(), model.getPicture()));
 
         ModelMapper modelMapper = new ModelMapper();
-        UserModel data = modelMapper.map(entity, UserModel.class);
+        UserRequest data = modelMapper.map(entity, UserRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<UserModel> edit(@PathVariable Integer id,
-                                           @RequestBody @Valid UserModel userModel) {
+    public ResponseMessage<UserRequest> edit(@PathVariable Integer id,
+                                             @RequestBody @Valid UserRequest userRequest) {
 
         ModelMapper modelMapper = new ModelMapper();
 
-        userModel.setId(id);
+        userRequest.setId(id);
         User entity = service.finById(id);
 
-        entity.setName(userModel.getName());
-        entity.setAddress(userModel.getAddress());
-        entity.setNik(userModel.getNik());
-        entity.setNoHp(userModel.getNoHp());
-        entity.setGender(userModel.getGender());
+        entity.setName(userRequest.getName());
+        entity.setAddress(userRequest.getAddress());
+        entity.setNik(userRequest.getNik());
+        entity.setNoHp(userRequest.getNoHp());
+        entity.setGender(userRequest.getGender());
 
-        UserModel data = modelMapper.map(entity, UserModel.class);
+        UserRequest data = modelMapper.map(entity, UserRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<UserModel> findById(@PathVariable Integer id) {
+    public ResponseMessage<UserRequest> findById(@PathVariable Integer id) {
 
         User entity = service.finById(id);
         ModelMapper modelMapper = new ModelMapper();
-        UserModel data = modelMapper.map(entity, UserModel.class);
+        UserRequest data = modelMapper.map(entity, UserRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<UserModel> removeById(@PathVariable Integer id) {
+    public ResponseMessage<UserRequest> removeById(@PathVariable Integer id) {
 
         User entity = service.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        UserModel model = modelMapper.map(entity, UserModel.class);
+        UserRequest model = modelMapper.map(entity, UserRequest.class);
 
         return ResponseMessage.success(model);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<UserModel>> findAll(
-            @RequestParam(required = false) String name, String nik, String noHp, String address, String email, String gender,
+    public ResponseMessage<PageableList<UserRequest>> findAll(
+            @RequestParam(required = false) String name, String nik, String noHp, String address,
+                                            String email, String gender,String picture,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -83,7 +84,7 @@ public class UserController {
         if (size > 100) {
             size = 100;
         }
-        User entity = new User(name, nik, noHp, address,gender);
+        User entity = new User(name, nik, noHp, address,gender, picture);
         Sort.Direction direction = Sort.Direction
                                 .fromOptionalString(sort.toUpperCase())
                                 .orElse(Sort.Direction.ASC);
@@ -92,10 +93,10 @@ public class UserController {
         List<User> users = pageUser.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<UserModel>>() {
+        Type type = new TypeToken<List<UserRequest>>() {
         }.getType();
-        List<UserModel> userModels = modelMapper.map(users,type);
-        PageableList<UserModel> data = new PageableList(userModels, pageUser.getNumber(), pageUser.getSize(), pageUser.getTotalPages());
+        List<UserRequest> userRequests = modelMapper.map(users,type);
+        PageableList<UserRequest> data = new PageableList(userRequests, pageUser.getNumber(), pageUser.getSize(), pageUser.getTotalPages());
 
         return ResponseMessage.success(data);
 

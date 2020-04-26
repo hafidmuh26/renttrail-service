@@ -15,15 +15,26 @@ public class User extends AbstractEntity {
 
     private String gender;
 
+    private String picture;
+
     public User() {
     }
 
-    public User(String name, String nik, String noHp, String address, String gender) {
+    public User(String name, String nik, String noHp, String address, String gender, String picture) {
         this.name = name;
         this.nik = nik;
         this.noHp = noHp;
         this.address = address;
         this.gender = gender;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getName() {
