@@ -5,19 +5,29 @@ import javax.persistence.Table;
 
 @Table(name = "outlet")
 @Entity
-public class Outlet extends AbstractEntity{
+public class Partner extends AbstractEntity{
 
     private String name;
     private String telp;
     private String address;
+    private String picture;
 
-    public Outlet() {
+    public Partner() {
     }
 
-    public Outlet(String name, String telp, String address) {
+    public Partner(String name, String telp, String address, String picture) {
         this.name = name;
         this.telp = telp;
         this.address = address;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getName() {

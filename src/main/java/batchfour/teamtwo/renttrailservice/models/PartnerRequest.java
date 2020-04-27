@@ -5,7 +5,7 @@ import batchfour.teamtwo.renttrailservice.validation.annotations.MinLength;
 
 import javax.validation.constraints.NotBlank;
 
-public class OutletRequest {
+public class PartnerRequest {
 
     private Integer id;
 
@@ -20,14 +20,25 @@ public class OutletRequest {
     @NotBlank(message = "Address can't banlk!")
     private String address;
 
-    public OutletRequest() {
+    private String picture;
+
+    public PartnerRequest() {
     }
 
-    public OutletRequest(Integer id, String name, String telp, String address) {
+    public PartnerRequest(Integer id, String name, String telp, String address, String picture) {
         this.id = id;
         this.name = name;
         this.telp = telp;
         this.address = address;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getName() {

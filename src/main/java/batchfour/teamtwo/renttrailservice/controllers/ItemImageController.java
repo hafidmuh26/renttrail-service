@@ -27,7 +27,7 @@ public class ItemImageController {
     private ItemService itemService;
 
     @Autowired
-    private ImageService service;
+    private ImageService<Item> service;
 
     @PostMapping
     public ResponseMessage<ItemImageRequest> upload(@PathVariable Integer id, @RequestParam MultipartFile file) throws IOException {
@@ -47,7 +47,7 @@ public class ItemImageController {
 
         String mediaTypes = URLConnection.guessContentTypeFromName(resource.getFilename());
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mediaTypes))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+    //                (.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\""))
                 .body(resource);
     }
 
