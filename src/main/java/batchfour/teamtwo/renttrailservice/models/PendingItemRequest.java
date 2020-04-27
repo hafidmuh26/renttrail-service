@@ -4,7 +4,6 @@ import batchfour.teamtwo.renttrailservice.entities.Partner;
 
 public class PendingItemRequest {
 
-    private Integer id;
     private String name;
     private Integer quantity;
     private String age;
@@ -15,22 +14,13 @@ public class PendingItemRequest {
     public PendingItemRequest() {
     }
 
-    public PendingItemRequest(Integer id, String name, Integer quantity, String age, String status, String description, Integer partner) {
-        this.id = id;
+    public PendingItemRequest(String name, Integer quantity, String age, String status, String description, Integer partner) {
         this.name = name;
         this.quantity = quantity;
         this.age = age;
         this.status = status;
         this.description = description;
         this.partner = partner;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

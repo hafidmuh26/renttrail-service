@@ -29,11 +29,17 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+<<<<<<< Updated upstream
     @Autowired
     private BrandService brandService;
 
     @Autowired
     private VarietyService varietyService;
+=======
+    @PostMapping
+    public ResponseMessage<ItemRequest> add(@RequestBody @Valid ItemRequest model) {
+        Item entity = service.save(new Item(model.getName(), model.getDescription(), model.getQuantity()));
+>>>>>>> Stashed changes
 
     @PostMapping
     public ResponseMessage<ItemModel> add(@RequestBody @Valid ItemRequest request) {
@@ -88,9 +94,14 @@ public class ItemController {
     @GetMapping
     public ResponseMessage<PageableList<ItemModel>> findAll(
             @RequestParam(required = false) String name,
+<<<<<<< Updated upstream
             @RequestParam(required = false) Integer price,
             @RequestParam(required = false) Brand brand,
             @RequestParam(required = false) Variety variety,
+=======
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Integer quantity,
+>>>>>>> Stashed changes
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -98,7 +109,11 @@ public class ItemController {
         if (size > 100) {
             size = 100;
         }
+<<<<<<< Updated upstream
         Item entity = new Item(name, price, brand, variety);
+=======
+        Item entity = new Item(name, description, quantity);
+>>>>>>> Stashed changes
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
