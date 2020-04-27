@@ -1,6 +1,6 @@
-INSERT INTO `item` (`id`, `name`, `description`, `quantity`) VALUES (1,'Shoes','L',20);
-INSERT INTO `item` (`id`, `name`, `description`, `quantity`) VALUES (2,'Tent','5 People',10);
-INSERT INTO `item` (`id`, `name`, `description`, `quantity`) VALUES (3,'Bag','450 Litre',20);
+-- INSERT INTO `item` (`id`, `name`, `description`, `quantity`) VALUES (1,'Shoes','L',20);
+-- INSERT INTO `item` (`id`, `name`, `description`, `quantity`) VALUES (2,'Tent','5 People',10);
+-- INSERT INTO `item` (`id`, `name`, `description`, `quantity`) VALUES (3,'Bag','450 Litre',20);
 
 INSERT INTO `user` (`id`, `nik`, `name`,`gender`, `address`, `no_hp`, `created_date`,`picture`) VALUES (1, '3330000123495', 'Bagus','Female','Jl. Merbabu No.769', '0823145', '2020-04-26 14:39:10','http://localhost:8080/users/1/imagespp.jfif');
 INSERT INTO `user` (`id`, `nik`, `name`,`gender`, `address`, `no_hp`, `created_date`,`picture`) VALUES (2, '3330000123495', 'Bambang','Female','Jl. Merbabu No.769', '0823145', '2020-04-26 14:40:10', '"http://localhost:8080/users/2/imagesWhatsApp%20Image%202020-03-09%20at%2017.51.05.jpeg');

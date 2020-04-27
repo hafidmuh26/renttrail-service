@@ -3,25 +3,13 @@ package batchfour.teamtwo.renttrailservice.models;
 public class ItemRequest {
 
     private String name;
-<<<<<<< Updated upstream
     private Integer price;
     private Integer brandId;
     private Integer varietyId;
-=======
-
-    @MinLength(3)
-    @MaxLength(50)
-    @NotBlank(message = "Description can't blank!")
-    private String description;
-
-    @NotNull(message = "Quantity can't Null")
-    private Integer quantity;
->>>>>>> Stashed changes
 
     public ItemRequest() {
     }
 
-<<<<<<< Updated upstream
     public ItemRequest(String name, Integer price, Integer brandId, Integer varietyId) {
         this.name = name;
         this.price = price;
@@ -30,26 +18,15 @@ public class ItemRequest {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
-=======
-    public ItemRequest(Integer id, String name, String description, Integer quantity) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-    }
-
-    public Integer getId() {
-        return id;
->>>>>>> Stashed changes
     }
 
     public Integer getPrice() {
-        return this.price;
+        return price;
     }
 
     public void setPrice(Integer price) {
@@ -57,7 +34,7 @@ public class ItemRequest {
     }
 
     public Integer getBrandId() {
-        return this.brandId;
+        return brandId;
     }
 
     public void setBrandId(Integer brandId) {
@@ -65,11 +42,10 @@ public class ItemRequest {
     }
 
     public Integer getVarietyId() {
-        return this.varietyId;
+        return varietyId;
     }
 
     public void setVarietyId(Integer varietyId) {
         this.varietyId = varietyId;
     }
-
 }
