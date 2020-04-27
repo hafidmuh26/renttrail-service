@@ -1,57 +1,65 @@
 package batchfour.teamtwo.renttrailservice.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table(name="item")
 @Entity
+@Table(name = "item")
 public class Item extends AbstractEntity {
 
     private String name;
-    private String description;
-    private Integer quantity;
-    private String picture;
+    private Integer price;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Brand brand;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Variety variety;
 
     public Item() {
     }
 
-    public Item(String name, String description, Integer quantity, String picture) {
+    public Item(String name, Integer price, Brand brand, Variety variety) {
         this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.picture = picture;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
+        this.price = price;
+        this.brand = brand;
+        this.variety = variety;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getPrice() {
+        return this.price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Brand getBrand() {
+        return this.brand;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
+
+    public Variety getVariety() {
+        return this.variety;
+    }
+
+    public void setVariety(Variety variety) {
+        this.variety = variety;
+    }
+
 }
