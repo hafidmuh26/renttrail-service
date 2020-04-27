@@ -42,12 +42,12 @@ public abstract class AbstractEntity implements Serializable {
     }
 
     @PrePersist
-    public void PrePersist() {
+    public void prePersist() {
         createdDate = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void PreUpdate() {
+    public void preUpdate() {
         modifiedDate = LocalDateTime.now();
     }
 }

@@ -1,10 +1,16 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
+import batchfour.teamtwo.renttrailservice.entities.Brand;
 import batchfour.teamtwo.renttrailservice.entities.Item;
+import batchfour.teamtwo.renttrailservice.entities.Variety;
+import batchfour.teamtwo.renttrailservice.models.ItemModel;
 import batchfour.teamtwo.renttrailservice.models.ItemRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
+import batchfour.teamtwo.renttrailservice.services.BrandService;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
+import batchfour.teamtwo.renttrailservice.services.VarietyService;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +27,70 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private ItemService service;
+    private ItemService itemService;
+
+    @Autowired
+    private BrandService brandService;
+
+    @Autowired
+    private VarietyService varietyService;
 
     @PostMapping
-    public ResponseMessage<ItemRequest> add(@RequestBody @Valid ItemRequest model) {
-        Item entity = service.save(new Item(model.getName(), model.getDescription(), model.getQuantity(), model.getPicture()));
-
+    public ResponseMessage<ItemModel> add(@RequestBody @Valid ItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
-        ItemRequest data = modelMapper.map(entity, ItemRequest.class);
+
+        Brand brand = brandService.findById(request.getBrandId());
+        Variety variety = varietyService.findById(request.getVarietyId());
+    
+        Item entity = itemService.save(new Item(request.getName(), request.getPrice(), brand, variety));
+
+        ItemModel data = modelMapper.map(entity, ItemModel.class);
         return ResponseMessage.successAdd(data);
     }
 
+    @PutMapping("/{id}")
+    public ResponseMessage<ItemModel> edit(@PathVariable Integer id, @RequestBody @Valid ItemRequest request){
+        ModelMapper modelMapper = new ModelMapper();
+
+        Item entity = itemService.findById(id);
+
+        entity.setName(request.getName());
+        entity.setPrice(request.getPrice());
+        entity.setBrand(brandService.findById(request.getBrandId()));
+        entity.setVariety(varietyService.findById(request.getVarietyId()));
+
+        entity = itemService.save(entity);
+
+        ItemModel data = modelMapper.map(entity, ItemModel.class);
+        return ResponseMessage.successEdit(data);        
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseMessage<ItemRequest> removeById(@PathVariable Integer id) {
-        Item entity = service.removeById(id);
+    public ResponseMessage<ItemModel> removeById(@PathVariable Integer id) {
+        Item entity = itemService.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        ItemRequest data = modelMapper.map(entity, ItemRequest.class);
+        ItemModel data = modelMapper.map(entity, ItemModel.class);
 
         return ResponseMessage.successDelete(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<ItemRequest> findById(@PathVariable Integer id) {
-        Item entity = service.findById(id);
+    public ResponseMessage<ItemModel> findById(@PathVariable Integer id) {
+        Item entity = itemService.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        ItemRequest data = modelMapper.map(entity, ItemRequest.class);
+        ItemModel data = modelMapper.map(entity, ItemModel.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<ItemRequest>> findAll(
+    public ResponseMessage<PageableList<ItemModel>> findAll(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) Integer quantity,
-            @RequestParam(required = false) String picture,
+            @RequestParam(required = false) Integer price,
+            @RequestParam(required = false) Brand brand,
+            @RequestParam(required = false) Variety variety,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -65,22 +98,21 @@ public class ItemController {
         if (size > 100) {
             size = 100;
         }
-        Item entity = new Item(name, description, quantity, picture);
+        Item entity = new Item(name, price, brand, variety);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
-        Page<Item> pageItems = service.findAll(entity, page, size, direction);
+        Page<Item> pageItems = itemService.findAll(entity, page, size, direction);
         List<Item> items = pageItems.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<ItemRequest>>() {
+        Type type = new TypeToken<List<ItemModel>>() {
         }.getType();
-        List<ItemRequest> itemRequests = modelMapper.map(items, type);
-        PageableList<ItemRequest> data = new PageableList(itemRequests, pageItems.getNumber(),
+        List<ItemModel> itemModels = modelMapper.map(items, type);
+        PageableList<ItemModel> data = new PageableList(itemModels, pageItems.getNumber(),
                 pageItems.getSize(), pageItems.getTotalElements());
 
         return ResponseMessage.success(data);
     }
-
 
 }

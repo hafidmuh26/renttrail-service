@@ -1,76 +1,52 @@
 package batchfour.teamtwo.renttrailservice.models;
 
-import batchfour.teamtwo.renttrailservice.validation.annotations.MaxLength;
-import batchfour.teamtwo.renttrailservice.validation.annotations.MinLength;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 public class ItemRequest {
 
-    private Integer id;
-
-    @MinLength(3)
-    @MaxLength(20)
-    @NotBlank(message = "Name can't banlk!")
     private String name;
-
-    @MinLength(3)
-    @MaxLength(50)
-    @NotBlank(message = "Description can't blank!")
-    private String description;
-
-    @NotNull(message = "Quantity can't Null")
-    private Integer quantity;
-    private String picture;
+    private Integer price;
+    private Integer brandId;
+    private Integer varietyId;
 
     public ItemRequest() {
     }
 
-    public ItemRequest(Integer id, String name, String description, Integer quantity, String picture) {
-        this.id = id;
+    public ItemRequest(String name, Integer price, Integer brandId, Integer varietyId) {
         this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.price = price;
+        this.brandId = brandId;
+        this.varietyId = varietyId;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getPrice() {
+        return this.price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getBrandId() {
+        return this.brandId;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
     }
+
+    public Integer getVarietyId() {
+        return this.varietyId;
+    }
+
+    public void setVarietyId(Integer varietyId) {
+        this.varietyId = varietyId;
+    }
+
 }
