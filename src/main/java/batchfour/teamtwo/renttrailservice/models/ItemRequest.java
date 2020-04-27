@@ -6,15 +6,25 @@ public class ItemRequest {
     private Integer price;
     private Integer brandId;
     private Integer varietyId;
+    private String picture;
 
     public ItemRequest() {
     }
 
-    public ItemRequest(String name, Integer price, Integer brandId, Integer varietyId) {
+    public ItemRequest(String name, Integer price, Integer brandId, Integer varietyId, String picture) {
         this.name = name;
         this.price = price;
         this.brandId = brandId;
         this.varietyId = varietyId;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getName() {

@@ -34,7 +34,7 @@ public class ItemImageController {
         Item entity = itemService.findById(id);
         Path path = service.save(entity, file);
         ItemImageRequest model = ItemImageRequest.from(id, path);
-        //entity.setPicture(model.getUrl());
+        entity.setPicture(model.getUrl());
         itemService.save(entity);
 
         return ResponseMessage.success(model);

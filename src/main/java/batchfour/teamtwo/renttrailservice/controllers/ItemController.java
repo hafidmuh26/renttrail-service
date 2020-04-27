@@ -42,7 +42,7 @@ public class ItemController {
         Brand brand = brandService.findById(request.getBrandId());
         Variety variety = varietyService.findById(request.getVarietyId());
     
-        Item entity = itemService.save(new Item(request.getName(), request.getPrice(), brand, variety));
+        Item entity = itemService.save(new Item(request.getName(), request.getPrice(), brand, variety, request.getPicture()));
 
         ItemModel data = modelMapper.map(entity, ItemModel.class);
         return ResponseMessage.successAdd(data);
@@ -56,6 +56,7 @@ public class ItemController {
 
         entity.setName(request.getName());
         entity.setPrice(request.getPrice());
+        entity.setPicture(request.getPicture());
         entity.setBrand(brandService.findById(request.getBrandId()));
         entity.setVariety(varietyService.findById(request.getVarietyId()));
 
@@ -91,6 +92,7 @@ public class ItemController {
             @RequestParam(required = false) Integer price,
             @RequestParam(required = false) Brand brand,
             @RequestParam(required = false) Variety variety,
+            @RequestParam(required = false) String picture,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -99,7 +101,7 @@ public class ItemController {
             size = 100;
         }
 
-        Item entity = new Item(name, price, brand, variety);
+        Item entity = new Item(name, price, brand, variety, picture);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);

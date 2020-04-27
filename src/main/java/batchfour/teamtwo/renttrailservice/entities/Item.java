@@ -20,14 +20,25 @@ public class Item extends AbstractEntity {
     @JoinColumn(nullable = false)
     private Variety variety;
 
+    private String picture;
+
     public Item() {
     }
 
-    public Item(String name, Integer price, Brand brand, Variety variety) {
+    public Item(String name, Integer price, Brand brand, Variety variety,String picture) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.variety = variety;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getName() {
