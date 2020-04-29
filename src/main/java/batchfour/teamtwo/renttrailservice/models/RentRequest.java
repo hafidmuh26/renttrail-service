@@ -1,51 +1,75 @@
-// package batchfour.teamtwo.renttrailservice.models;
+package batchfour.teamtwo.renttrailservice.models;
 
-// public class RentRequest {
+import java.time.LocalDate;
 
-//     private Integer itemId;
-//     private Integer price;
-//     private Integer totalPrice;
-//     private String status;
+public class RentRequest {
 
-//     public RentRequest() {
-//     }
+    private Integer totalRent;
+    private Integer totalPrice;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
+    private Integer itemId;
+    private Integer userId;
 
-//     public RentRequest(Integer itemId, Integer price, Integer totalPrice, String status) {
-//         this.itemId = itemId;
-//         this.price = price;
-//         this.totalPrice = totalPrice;
-//         this.status = status;
-//     }
+    public RentRequest() {
+    }
 
-//     public Integer getItemId() {
-//         return itemId;
-//     }
+    public RentRequest(Integer totalRent, Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Integer itemId,
+            Integer userId) {
+        this.totalRent = totalRent;
+        this.totalPrice = totalPrice;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.itemId = itemId;
+        this.userId = userId;
+    }
 
-//     public void setItemId(Integer itemId) {
-//         this.itemId = itemId;
-//     }
+    public Integer getTotalRent() {
+        return this.totalRent;
+    }
 
-//     public Integer getPrice() {
-//         return price;
-//     }
+    public void setTotalRent(Integer totalRent) {
+        this.totalRent = totalRent;
+    }
 
-//     public void setPrice(Integer price) {
-//         this.price = price;
-//     }
+    public Integer getTotalPrice() {
+        return this.totalPrice;
+    }
 
-//     public Integer getTotalPrice() {
-//         return totalPrice;
-//     }
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-//     public void setTotalPrice(Integer totalPrice) {
-//         this.totalPrice = totalPrice;
-//     }
+    public LocalDate getDateStart() {
+        return this.dateStart;
+    }
 
-//     public String getStatus() {
-//         return status;
-//     }
+    public void setDateStart(LocalDate dateStart) {
+        this.dateStart = dateStart;
+    }
 
-//     public void setStatus(String status) {
-//         this.status = status;
-//     }
-// }
+    public LocalDate getDateEnd() {
+        return this.dateEnd;
+    }
+
+    public void setDateEnd(LocalDate dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public Integer getItemId() {
+        return this.itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public Integer getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+}

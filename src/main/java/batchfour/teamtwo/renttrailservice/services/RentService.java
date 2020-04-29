@@ -1,6 +1,6 @@
-// package batchfour.teamtwo.renttrailservice.services;
+package batchfour.teamtwo.renttrailservice.services;
 
-// import batchfour.teamtwo.renttrailservice.entities.Rent;
+import batchfour.teamtwo.renttrailservice.entities.Rent;
 
-// public interface RentService extends EntityService<Rent, Integer>{
-// }
+public interface RentService extends EntityService<Rent, Integer> {
+}
