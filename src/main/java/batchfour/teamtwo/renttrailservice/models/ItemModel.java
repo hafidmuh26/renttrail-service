@@ -59,4 +59,10 @@ public class ItemModel {
         this.variety = variety;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", price='" + getPrice() + "'"
+                + ", brand='" + getBrand() + "'" + ", variety='" + getVariety() + "'" + "}";
+    }
+
 }

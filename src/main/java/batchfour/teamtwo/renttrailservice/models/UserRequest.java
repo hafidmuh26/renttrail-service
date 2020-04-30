@@ -31,7 +31,8 @@ public class UserRequest {
     public UserRequest() {
     }
 
-    public UserRequest(Integer id, String name, String nik, String noHp, String address, String gender, String picture) {
+    public UserRequest(Integer id, String name, String nik, String noHp, String address, String gender,
+            String picture) {
         this.id = id;
         this.name = name;
         this.nik = nik;
@@ -96,4 +97,12 @@ public class UserRequest {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", nik='" + getNik() + "'" + ", noHp='"
+                + getNoHp() + "'" + ", address='" + getAddress() + "'" + ", gender='" + getGender() + "'"
+                + ", picture='" + getPicture() + "'" + "}";
+    }
+
 }

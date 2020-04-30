@@ -82,4 +82,11 @@ public class RentModel {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", totalRent='" + getTotalRent() + "'" + ", totalPrice='"
+                + getTotalPrice() + "'" + ", dateStart='" + getDateStart() + "'" + ", dateEnd='" + getDateEnd() + "'"
+                + ", item='" + getItem() + "'" + ", user='" + getUser() + "'" + "}";
+    }
+
 }

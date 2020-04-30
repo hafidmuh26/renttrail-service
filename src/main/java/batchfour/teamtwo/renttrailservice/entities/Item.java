@@ -25,7 +25,7 @@ public class Item extends AbstractEntity {
     public Item() {
     }
 
-    public Item(String name, Integer price, Brand brand, Variety variety,String picture) {
+    public Item(String name, Integer price, Brand brand, Variety variety, String picture) {
         this.name = name;
         this.price = price;
         this.brand = brand;
@@ -72,4 +72,11 @@ public class Item extends AbstractEntity {
     public void setVariety(Variety variety) {
         this.variety = variety;
     }
+
+    @Override
+    public String toString() {
+        return "{" + " name='" + getName() + "'" + ", price='" + getPrice() + "'" + ", brand='" + getBrand() + "'"
+                + ", variety='" + getVariety() + "'" + ", picture='" + getPicture() + "'" + "}";
+    }
+
 }

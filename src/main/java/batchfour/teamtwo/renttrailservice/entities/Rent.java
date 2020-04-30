@@ -84,4 +84,16 @@ public class Rent extends AbstractEntity {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " totalRent='" + getTotalRent() + "'" +
+            ", totalPrice='" + getTotalPrice() + "'" +
+            ", dateStart='" + getDateStart() + "'" +
+            ", dateEnd='" + getDateEnd() + "'" +
+            ", item='" + getItem() + "'" +
+            ", user='" + getUser() + "'" +
+            "}";
+    }
+
 }
