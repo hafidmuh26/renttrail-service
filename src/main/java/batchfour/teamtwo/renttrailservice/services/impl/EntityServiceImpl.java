@@ -1,6 +1,6 @@
 package batchfour.teamtwo.renttrailservice.services.impl;
 
-import batchfour.teamtwo.renttrailservice.exeptions.EntityNotFoundException;
+import batchfour.teamtwo.renttrailservice.exceptions.EntityNotFoundException;
 import batchfour.teamtwo.renttrailservice.services.EntityService;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;

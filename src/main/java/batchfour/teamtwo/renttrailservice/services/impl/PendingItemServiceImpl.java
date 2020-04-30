@@ -1,7 +1,7 @@
 package batchfour.teamtwo.renttrailservice.services.impl;
 
 import batchfour.teamtwo.renttrailservice.entities.PendingItem;
-import batchfour.teamtwo.renttrailservice.exeptions.EntityNotFoundException;
+import batchfour.teamtwo.renttrailservice.exceptions.EntityNotFoundException;
 import batchfour.teamtwo.renttrailservice.repositories.PendingItemRepository;
 import batchfour.teamtwo.renttrailservice.services.PendingItemService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,64 +1,93 @@
 package batchfour.teamtwo.renttrailservice.entities;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
-public class Account implements UserDetails {
+@Table(name = "account", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
+public class Account {
 
     @Id
-    private Integer id;
-    private String userName;
-    private String password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Email
+    @Column(nullable = false)
     private String email;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "ACCOUNT_ROLE",
-            joinColumns = @JoinColumn(name = "ACCOUNT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
-    )
-    private Set<Role> authorities = new HashSet<>();
 
-    @Override
-    public Set<Role> getAuthorities() {
-        return authorities;
+    @Column(nullable = false)
+    private Boolean emailVerified = false;
+
+    @JsonIgnore
+    private String password;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    private String prviderId;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setAuthorities(Set<Role> authorities) {
-        this.authorities = authorities;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(Boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return userName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public AuthProvider getProvider() {
+        return provider;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public String getPrviderId() {
+        return prviderId;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public void setPrviderId(String prviderId) {
+        this.prviderId = prviderId;
     }
-
-
 }
