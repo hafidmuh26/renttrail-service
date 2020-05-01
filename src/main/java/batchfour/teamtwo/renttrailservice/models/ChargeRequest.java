@@ -2,22 +2,31 @@ package batchfour.teamtwo.renttrailservice.models;
 
 public class ChargeRequest {
 
+    private Integer id;
     private String description;
     private Integer price;
-    private Integer itemId;
-    private Integer userId;
-    private Integer rentId;
+    private ItemRequest item;
+    private UserRequest user;
+    private RentRequest rent;
 
     public ChargeRequest() {
     }
 
-    public ChargeRequest(String description, Integer price,
-                         Integer itemId, Integer userId, Integer rentId) {
+    public ChargeRequest(Integer id, String description, Integer price, ItemRequest item, UserRequest user, RentRequest rent) {
+        this.id = id;
         this.description = description;
         this.price = price;
-        this.itemId = itemId;
-        this.userId = userId;
-        this.rentId = rentId;
+        this.item = item;
+        this.user = user;
+        this.rent = rent;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -36,27 +45,27 @@ public class ChargeRequest {
         this.price = price;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public ItemRequest getItem() {
+        return item;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItem(ItemRequest item) {
+        this.item = item;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public UserRequest getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(UserRequest user) {
+        this.user = user;
     }
 
-    public Integer getRentId() {
-        return rentId;
+    public RentRequest getRent() {
+        return rent;
     }
 
-    public void setRentId(Integer rentId) {
-        this.rentId = rentId;
+    public void setRent(RentRequest rent) {
+        this.rent = rent;
     }
 }

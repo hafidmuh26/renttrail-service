@@ -4,21 +4,32 @@ import java.time.LocalDate;
 
 public class RentRequest {
 
+    private Integer id;
     private Integer totalPrice;
     private LocalDate dateStart;
     private LocalDate dateEnd;
-    private Integer itemId;
-    private Integer userId;
+    private ItemRequest item;
+    private UserRequest user;
 
     public RentRequest() {
     }
 
-    public RentRequest(Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Integer itemId, Integer userId) {
+    public RentRequest(Integer id, Integer totalPrice, LocalDate dateStart,
+                       LocalDate dateEnd, ItemRequest item, UserRequest user) {
+        this.id = id;
         this.totalPrice = totalPrice;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
-        this.itemId = itemId;
-        this.userId = userId;
+        this.item = item;
+        this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getTotalPrice() {
@@ -45,19 +56,19 @@ public class RentRequest {
         this.dateEnd = dateEnd;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public ItemRequest getItem() {
+        return item;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItem(ItemRequest item) {
+        this.item = item;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public UserRequest getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(UserRequest user) {
+        this.user = user;
     }
 }

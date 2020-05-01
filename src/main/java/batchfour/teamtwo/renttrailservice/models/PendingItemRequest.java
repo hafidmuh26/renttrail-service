@@ -1,29 +1,39 @@
 package batchfour.teamtwo.renttrailservice.models;
 
-
 public class PendingItemRequest {
 
+    private Integer id;
     private String name;
     private String brand;
     private String age;
     private Integer price;
     private String status;
     private String picture;
-    private Integer partnerId;
-    private Integer varietyId;
+    private PartnerRequest partner;
+    private VarietyRequest variety;
 
     public PendingItemRequest() {
     }
 
-    public PendingItemRequest(String name, String brand, String age, Integer price, String status, String picture, Integer partnerId, Integer varietyId) {
+    public PendingItemRequest(Integer id, String name, String brand, String age, Integer price,
+                              String status, String picture, PartnerRequest partner, VarietyRequest variety) {
+        this.id = id;
         this.name = name;
         this.brand = brand;
         this.age = age;
         this.price = price;
         this.status = status;
         this.picture = picture;
-        this.partnerId = partnerId;
-        this.varietyId = varietyId;
+        this.partner = partner;
+        this.variety = variety;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -74,19 +84,19 @@ public class PendingItemRequest {
         this.picture = picture;
     }
 
-    public Integer getPartnerId() {
-        return partnerId;
+    public PartnerRequest getPartner() {
+        return partner;
     }
 
-    public void setPartnerId(Integer partnerId) {
-        this.partnerId = partnerId;
+    public void setPartner(PartnerRequest partner) {
+        this.partner = partner;
     }
 
-    public Integer getVarietyId() {
-        return varietyId;
+    public VarietyRequest getVariety() {
+        return variety;
     }
 
-    public void setVarietyId(Integer varietyId) {
-        this.varietyId = varietyId;
+    public void setVariety(VarietyRequest variety) {
+        this.variety = variety;
     }
 }

@@ -22,13 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.entities.Stock;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
-import batchfour.teamtwo.renttrailservice.models.StockModel;
 import batchfour.teamtwo.renttrailservice.models.StockRequest;
-import batchfour.teamtwo.renttrailservice.services.ItemService;
 import batchfour.teamtwo.renttrailservice.services.StockService;
 
 @RequestMapping("/stocks")
@@ -42,54 +39,54 @@ public class StockController {
     private PendingItemService pendingItemService;
 
     @PostMapping
-    public ResponseMessage<StockModel> add(@RequestBody @Valid StockRequest request) {
+    public ResponseMessage<StockRequest> add(@RequestBody @Valid StockRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
-        PendingItem pendingItem = pendingItemService.findById(request.getItemId());
+        PendingItem pendingItem = pendingItemService.findById(request.getItem().getId());
 
         Stock entity = stockService.save(new Stock(pendingItem, request.getQuantity()));
 
-        StockModel data = modelMapper.map(entity, StockModel.class);
+        StockRequest data = modelMapper.map(entity, StockRequest.class);
         return ResponseMessage.successAdd(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<StockModel> edit(@PathVariable Integer id, @RequestBody @Valid StockRequest request){
+    public ResponseMessage<StockRequest> edit(@PathVariable Integer id, @RequestBody @Valid StockRequest request){
         ModelMapper modelMapper = new ModelMapper();
 
         Stock entity = stockService.findById(id);
 
-        entity.setPendingItem(pendingItemService.findById(request.getItemId()));
+        entity.setPendingItem(pendingItemService.findById(request.getItem().getId()));
         entity.setQuantity(request.getQuantity());
 
         entity = stockService.save(entity);
 
-        StockModel data = modelMapper.map(entity, StockModel.class);
+        StockRequest data = modelMapper.map(entity, StockRequest.class);
         return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<StockModel> removeById(@PathVariable Integer id) {
+    public ResponseMessage<StockRequest> removeById(@PathVariable Integer id) {
         Stock entity = stockService.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        StockModel data = modelMapper.map(entity, StockModel.class);
+        StockRequest data = modelMapper.map(entity, StockRequest.class);
 
         return ResponseMessage.successDelete(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<StockModel> findById(@PathVariable Integer id) {
+    public ResponseMessage<StockRequest> findById(@PathVariable Integer id) {
         Stock entity = stockService.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        StockModel data = modelMapper.map(entity, StockModel.class);
+        StockRequest data = modelMapper.map(entity, StockRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<StockModel>> findAll(
+    public ResponseMessage<PageableList<StockRequest>> findAll(
             @RequestParam(required = false) PendingItem item,
             @RequestParam(required = false) Integer quantity,
             @RequestParam(defaultValue = "asc") String sort,
@@ -108,10 +105,10 @@ public class StockController {
         List<Stock> items = pageStocks.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<StockModel>>() {
+        Type type = new TypeToken<List<StockRequest>>() {
         }.getType();
-        List<StockModel> stockModels = modelMapper.map(items, type);
-        PageableList<StockModel> data = new PageableList(stockModels, pageStocks.getNumber(),
+        List<StockRequest> stockModels = modelMapper.map(items, type);
+        PageableList<StockRequest> data = new PageableList(stockModels, pageStocks.getNumber(),
                 pageStocks.getSize(), pageStocks.getTotalElements());
 
         return ResponseMessage.success(data);

@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
 import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.entities.Rent;
 import batchfour.teamtwo.renttrailservice.entities.User;
-import batchfour.teamtwo.renttrailservice.models.RentModel;
 import batchfour.teamtwo.renttrailservice.models.RentRequest;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
 import batchfour.teamtwo.renttrailservice.services.RentService;
@@ -61,15 +60,15 @@ public class BarcodeController {
     public String createQR(@RequestBody RentRequest request, Model model) throws WriterException, IOException {
         ModelMapper modelMapper = new ModelMapper();
 
-        Item item = itemService.findById(request.getItemId());
-        User user = userService.finById(request.getUserId());
+        Item item = itemService.findById(request.getItem().getId());
+        User user = userService.finById(request.getUser().getId());
 
         Rent rent = rentService.save(new Rent(request.getTotalPrice(), request.getDateStart(),
                 request.getDateEnd(), item, user));
 
-        RentModel temp = modelMapper.map(rent, RentModel.class);
+        RentRequest temp = modelMapper.map(rent, RentRequest.class);
 
-        RentModel qrCodePath = writeQR(temp);
+        RentRequest qrCodePath = writeQR(temp);
         model.addAttribute("code", qrCodePath);
         return "QRcode Success Add";
     }
@@ -82,7 +81,7 @@ public class BarcodeController {
 
     }
 
-    private RentModel writeQR(RentModel request) throws WriterException, IOException {
+    private RentRequest writeQR(RentRequest request) throws WriterException, IOException {
         String qcodePath = "src/main/resources/static/images/" + request.getId() + "-QRCode.png";
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(

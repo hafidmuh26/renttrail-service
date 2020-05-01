@@ -28,57 +28,57 @@
 
 
      @PostMapping
-     public ResponseMessage<TransactionModel> add(@RequestBody @Valid TransactionRequest request) {
+     public ResponseMessage<TransactionRequest> add(@RequestBody @Valid TransactionRequest request) {
          ModelMapper modelMapper = new ModelMapper();
 
-         Rent rent = rentService.findById(request.getRentId());
+         Rent rent = rentService.findById(request.getRent().getId());
 
          Transaction entity = transactionService.save(new Transaction(request.getGrandTotal(),
                  StatusTransaction.fromValue(request.getStatus()), rent));
 
-         TransactionModel data = modelMapper.map(entity, TransactionModel.class);
+         TransactionRequest data = modelMapper.map(entity, TransactionRequest.class);
          return ResponseMessage.successAdd(data);
      }
 
      @PutMapping("/{id}")
-     public ResponseMessage<TransactionModel> edit(@PathVariable Integer id, @RequestBody @Valid TransactionRequest request){
+     public ResponseMessage<TransactionRequest> edit(@PathVariable Integer id, @RequestBody @Valid TransactionRequest request){
          ModelMapper modelMapper = new ModelMapper();
 
          Transaction entity = transactionService.findById(id);
 
          entity.setGrandTotal(request.getGrandTotal());
          entity.setStatus(StatusTransaction.fromValue(request.getStatus()));
-         entity.setRent(rentService.findById(request.getRentId()));
+         entity.setRent(rentService.findById(request.getRent().getId()));
 
          entity = transactionService.save(entity);
 
-         TransactionModel data = modelMapper.map(entity, TransactionModel.class);
+         TransactionRequest data = modelMapper.map(entity, TransactionRequest.class);
          return ResponseMessage.successEdit(data);
      }
 
      @DeleteMapping("/{id}")
-     public ResponseMessage<TransactionModel> removeById(@PathVariable Integer id) {
+     public ResponseMessage<TransactionRequest> removeById(@PathVariable Integer id) {
          ModelMapper modelMapper = new ModelMapper();
 
          Transaction entity = transactionService.removeById(id);
 
-         TransactionModel data = modelMapper.map(entity, TransactionModel.class);
+         TransactionRequest data = modelMapper.map(entity, TransactionRequest.class);
 
          return ResponseMessage.successDelete(data);
      }
 
      @GetMapping("/{id}")
-     public ResponseMessage<TransactionModel> findById(@PathVariable Integer id) {
+     public ResponseMessage<TransactionRequest> findById(@PathVariable Integer id) {
          Transaction entity = transactionService.findById(id);
 
          ModelMapper modelMapper = new ModelMapper();
-         TransactionModel data = modelMapper.map(entity, TransactionModel.class);
+         TransactionRequest data = modelMapper.map(entity, TransactionRequest.class);
 
          return ResponseMessage.success(data);
      }
 
      @GetMapping
-     public ResponseMessage<PageableList<TransactionModel>> findAll(
+     public ResponseMessage<PageableList<TransactionRequest>> findAll(
              @RequestParam(required = false) Integer grandTotal,
              @RequestParam(required = false) StatusTransaction status,
              @RequestParam(required = false) Rent rent,
@@ -98,10 +98,10 @@
          List<Transaction> transactions = pageTransactions.toList();
 
          ModelMapper modelMapper = new ModelMapper();
-         Type type = new TypeToken<List<TransactionModel>>() {
+         Type type = new TypeToken<List<TransactionRequest>>() {
          }.getType();
-         List<TransactionModel> transactionModels = modelMapper.map(transactions, type);
-         PageableList<TransactionModel> data = new PageableList(transactionModels, pageTransactions.getNumber(),
+         List<TransactionRequest> transactionModels = modelMapper.map(transactions, type);
+         PageableList<TransactionRequest> data = new PageableList(transactionModels, pageTransactions.getNumber(),
                  pageTransactions.getSize(), pageTransactions.getTotalElements());
 
          return ResponseMessage.success(data);

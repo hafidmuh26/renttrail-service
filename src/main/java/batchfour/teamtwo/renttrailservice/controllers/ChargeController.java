@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import batchfour.teamtwo.renttrailservice.entities.Charge;
 import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.entities.User;
-import batchfour.teamtwo.renttrailservice.models.ChargeModel;
 import batchfour.teamtwo.renttrailservice.models.ChargeRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
@@ -50,59 +49,59 @@ public class ChargeController {
     private RentService rentService;
 
     @PostMapping
-    public ResponseMessage<ChargeModel> add(@RequestBody @Valid ChargeRequest request) {
+    public ResponseMessage<ChargeRequest> add(@RequestBody @Valid ChargeRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
-        Item item = itemService.findById(request.getItemId());
-        User user = userService.finById(request.getUserId());
-        Rent rent = rentService.findById(request.getRentId());
+        Item item = itemService.findById(request.getItem().getId());
+        User user = userService.finById(request.getUser().getId());
+        Rent rent = rentService.findById(request.getRent().getId());
 
         Charge entity = chargeService.save(new Charge(request.getDescription(), request.getPrice(), user, item, rent));
 
-        ChargeModel data = modelMapper.map(entity, ChargeModel.class);
+        ChargeRequest data = modelMapper.map(entity, ChargeRequest.class);
         return ResponseMessage.successAdd(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<ChargeModel> edit(@PathVariable Integer id, @RequestBody @Valid ChargeRequest request) {
+    public ResponseMessage<ChargeRequest> edit(@PathVariable Integer id, @RequestBody @Valid ChargeRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
         Charge entity = chargeService.findById(id);
 
         entity.setDescription(request.getDescription());
         entity.setPrice(request.getPrice());
-        entity.setUser(userService.finById(request.getUserId()));
-        entity.setItem(itemService.findById(request.getItemId()));
-        entity.setRent(rentService.findById(request.getRentId()));
+        entity.setUser(userService.finById(request.getUser().getId()));
+        entity.setItem(itemService.findById(request.getItem().getId()));
+        entity.setRent(rentService.findById(request.getRent().getId()));
 
         entity = chargeService.save(entity);
 
-        ChargeModel data = modelMapper.map(entity, ChargeModel.class);
+        ChargeRequest data = modelMapper.map(entity, ChargeRequest.class);
         return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<ChargeModel> removeById(@PathVariable Integer id) {
+    public ResponseMessage<ChargeRequest> removeById(@PathVariable Integer id) {
         Charge entity = chargeService.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        ChargeModel data = modelMapper.map(entity, ChargeModel.class);
+        ChargeRequest data = modelMapper.map(entity, ChargeRequest.class);
 
         return ResponseMessage.successDelete(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<ChargeModel> findById(@PathVariable Integer id) {
+    public ResponseMessage<ChargeRequest> findById(@PathVariable Integer id) {
         Charge entity = chargeService.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        ChargeModel data = modelMapper.map(entity, ChargeModel.class);
+        ChargeRequest data = modelMapper.map(entity, ChargeRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<ChargeModel>> findAll(
+    public ResponseMessage<PageableList<ChargeRequest>> findAll(
             @RequestParam(required = false) String description,
             @RequestParam(required = false) Integer price,
             @RequestParam(required = false) Item item,
@@ -124,10 +123,10 @@ public class ChargeController {
         List<Charge> items = pageCharges.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<ChargeModel>>() {
+        Type type = new TypeToken<List<ChargeRequest>>() {
         }.getType();
-        List<ChargeModel> itemModels = modelMapper.map(items, type);
-        PageableList<ChargeModel> data = new PageableList(itemModels, pageCharges.getNumber(),
+        List<ChargeRequest> itemModels = modelMapper.map(items, type);
+        PageableList<ChargeRequest> data = new PageableList(itemModels, pageCharges.getNumber(),
                 pageCharges.getSize(), pageCharges.getTotalElements());
 
         return ResponseMessage.success(data);
