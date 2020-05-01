@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Table(name = "rent")
 public class Rent extends AbstractEntity {
 
-    private Integer totalRent;
     private Integer totalPrice;
     private LocalDate dateStart;
     private LocalDate dateEnd;
@@ -27,25 +26,8 @@ public class Rent extends AbstractEntity {
     public Rent() {
     }
 
-    public Rent(Integer totalRent, Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Item item, User user) {
-        this.totalRent = totalRent;
-        this.totalPrice = totalPrice;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.item = item;
-        this.user = user;
-    }
-
-    public Integer getTotalRent() {
-        return this.totalRent;
-    }
-
-    public void setTotalRent(Integer totalRent) {
-        this.totalRent = totalRent;
-    }
-
     public Integer getTotalPrice() {
-        return this.totalPrice;
+        return totalPrice;
     }
 
     public void setTotalPrice(Integer totalPrice) {
@@ -53,7 +35,7 @@ public class Rent extends AbstractEntity {
     }
 
     public LocalDate getDateStart() {
-        return this.dateStart;
+        return dateStart;
     }
 
     public void setDateStart(LocalDate dateStart) {
@@ -61,7 +43,7 @@ public class Rent extends AbstractEntity {
     }
 
     public LocalDate getDateEnd() {
-        return this.dateEnd;
+        return dateEnd;
     }
 
     public void setDateEnd(LocalDate dateEnd) {
@@ -69,7 +51,7 @@ public class Rent extends AbstractEntity {
     }
 
     public Item getItem() {
-        return this.item;
+        return item;
     }
 
     public void setItem(Item item) {
@@ -77,23 +59,18 @@ public class Rent extends AbstractEntity {
     }
 
     public User getUser() {
-        return this.user;
+        return user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " totalRent='" + getTotalRent() + "'" +
-            ", totalPrice='" + getTotalPrice() + "'" +
-            ", dateStart='" + getDateStart() + "'" +
-            ", dateEnd='" + getDateEnd() + "'" +
-            ", item='" + getItem() + "'" +
-            ", user='" + getUser() + "'" +
-            "}";
+    public Rent(Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Item item, User user) {
+        this.totalPrice = totalPrice;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.item = item;
+        this.user = user;
     }
-
 }

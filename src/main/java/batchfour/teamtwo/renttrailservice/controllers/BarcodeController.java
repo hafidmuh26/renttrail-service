@@ -58,12 +58,13 @@ public class BarcodeController {
     private RentService rentService;
 
     @PostMapping("/createqr")
-    public String createNewAccount(@RequestBody RentRequest request, Model model) throws WriterException, IOException {
+    public String createQR(@RequestBody RentRequest request, Model model) throws WriterException, IOException {
         ModelMapper modelMapper = new ModelMapper();
+
         Item item = itemService.findById(request.getItemId());
         User user = userService.finById(request.getUserId());
 
-        Rent rent = rentService.save(new Rent(request.getTotalRent(), request.getTotalPrice(), request.getDateStart(),
+        Rent rent = rentService.save(new Rent(request.getTotalPrice(), request.getDateStart(),
                 request.getDateEnd(), item, user));
 
         RentModel temp = modelMapper.map(rent, RentModel.class);
@@ -85,9 +86,9 @@ public class BarcodeController {
         String qcodePath = "src/main/resources/static/images/" + request.getId() + "-QRCode.png";
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(
-                "Rent Id " + request.getId() + "\n" + "Total Rent " + request.getTotalRent() + "\n" + "Total Price "
-                        + request.getTotalPrice() + "\n" + "Date Start " + request.getDateStart() + "\n" + "Date End "
-                        + request.getDateEnd() + "\n" + "Item " + request.getItem().getName() + "\n" + "User " + request.getUser().getName(),
+                "Rent Id " + request.getId() + "\n" + "\n" + "Total Price " + request.getTotalPrice() + "\n"
+                        + "Date Start " + request.getDateStart() + "\n" + "Date End " + request.getDateEnd() + "\n"
+                        + "Item " + request.getItem().getName() + "\n" + "User " + request.getUser().getName(),
                 BarcodeFormat.QR_CODE, 350, 350);
         Path path = FileSystems.getDefault().getPath(qcodePath);
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);

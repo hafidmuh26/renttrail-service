@@ -1,28 +1,18 @@
 package batchfour.teamtwo.renttrailservice.models;
 
-public class TransactionModel {
+public class TransactionRequest {
 
-    private Integer id;
     private Integer grandTotal;
     private String status;
-    private RentModel rent;
+    private Integer rentId;
 
-    public TransactionModel() {
+    public TransactionRequest() {
     }
 
-    public TransactionModel(Integer id, Integer grandTotal, String status, RentModel rent) {
-        this.id = id;
+    public TransactionRequest(Integer grandTotal, String status, Integer rentId) {
         this.grandTotal = grandTotal;
         this.status = status;
-        this.rent = rent;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.rentId = rentId;
     }
 
     public Integer getGrandTotal() {
@@ -41,11 +31,11 @@ public class TransactionModel {
         this.status = status;
     }
 
-    public RentModel getRent() {
-        return rent;
+    public Integer getRentId() {
+        return rentId;
     }
 
-    public void setRent(RentModel rent) {
-        this.rent = rent;
+    public void setRentId(Integer rentId) {
+        this.rentId = rentId;
     }
 }

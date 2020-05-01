@@ -2,8 +2,8 @@ package batchfour.teamtwo.renttrailservice.models;
 
 public class StockRequest {
 
-    private Integer itemId;
     private Integer quantity;
+    private Integer itemId;
 
     public StockRequest() {
     }

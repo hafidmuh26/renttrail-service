@@ -1,13 +1,11 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
 
-import batchfour.teamtwo.renttrailservice.entities.Partner;
-import batchfour.teamtwo.renttrailservice.entities.PendingItem;
-import batchfour.teamtwo.renttrailservice.models.PageableList;
-import batchfour.teamtwo.renttrailservice.models.PendingItemRequest;
-import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
+import batchfour.teamtwo.renttrailservice.entities.*;
+import batchfour.teamtwo.renttrailservice.models.*;
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
 import batchfour.teamtwo.renttrailservice.services.PendingItemService;
+import batchfour.teamtwo.renttrailservice.services.VarietyService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -26,94 +25,101 @@ import java.util.List;
 public class PendingItemController {
 
     @Autowired
-    private PendingItemService service;
+    private PendingItemService pendingItemService;
 
     @Autowired
     private PartnerService partnerService;
 
+    @Autowired
+    private VarietyService varietyService;
+
     @PostMapping
-    public ResponseMessage<PendingItemRequest> save(@RequestBody @Valid PendingItemRequest model) {
-
-        Partner partner = partnerService.findById(model.getPartner());
-
-        PendingItem entity = new PendingItem(model.getName(), model.getQuantity(), model.getAge(),
-                                             model.getStatus(), model.getDescription(), partner);
-        service.save(entity);
-
+    public ResponseMessage<PendingItemModel> add(@RequestBody @Valid PendingItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
-        PendingItemRequest data = modelMapper.map(entity, PendingItemRequest.class);
 
-        return ResponseMessage.success(data);
+        Partner partner = partnerService.findById(request.getPartnerId());
+        Variety variety = varietyService.findById(request.getVarietyId());
+
+        PendingItem entity = pendingItemService.save(new PendingItem(request.getName(), request.getBrand(),
+                request.getAge(), request.getPrice(), StatusItem.fromValue(request.getStatus()), request.getPicture(),
+                partner, variety));
+
+        PendingItemModel data = modelMapper.map(entity, PendingItemModel.class);
+        return ResponseMessage.successAdd(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<PendingItemRequest> edit(@PathVariable Integer id, @RequestBody @Valid PendingItemRequest model) {
-
+    public ResponseMessage<PendingItemModel> edit(@PathVariable Integer id, @RequestBody @Valid PendingItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
-        PendingItem entity = service.findById(id);
+        PendingItem entity = pendingItemService.findById(id);
 
-        entity.setName(model.getName());
-        entity.setQuantity(model.getQuantity());
-        entity.setAge(model.getAge());
-        entity.setStatus(model.getStatus());
-        entity.setDescription(model.getDescription());
-        entity.setPartner(partnerService.findById(model.getPartner()));
-        entity = service.save(entity);
+        entity.setName(request.getName());
+        entity.setBrand(request.getBrand());
+        entity.setAge(request.getAge());
+        entity.setPrice(request.getPrice());
+        entity.setStatus(StatusItem.fromValue(request.getStatus()));
+        entity.setPicture(request.getPicture());
+        entity.setPartner(partnerService.findById(request.getPartnerId()));
+        entity.setVariety(varietyService.findById(request.getVarietyId()));
 
-        PendingItemRequest data = modelMapper.map(entity, PendingItemRequest.class);
+        entity = pendingItemService.save(entity);
 
-        return ResponseMessage.success(data);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseMessage<PendingItemRequest> findById(@PathVariable Integer id) {
-
-        PendingItem entity = service.findById(id);
-
-        ModelMapper modelMapper = new ModelMapper();
-        PendingItemRequest data = modelMapper.map(entity, PendingItemRequest.class);
-
-        return ResponseMessage.success(data);
+        PendingItemModel data = modelMapper.map(entity, PendingItemModel.class);
+        return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<PendingItemRequest> removeById(@PathVariable Integer id) {
-        PendingItem entity = service.removeById(id);
+    public ResponseMessage<PendingItemModel> removeById(@PathVariable Integer id) {
+        PendingItem entity = pendingItemService.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        PendingItemRequest data = modelMapper.map(entity, PendingItemRequest.class);
+        PendingItemModel data = modelMapper.map(entity, PendingItemModel.class);
+
+        return ResponseMessage.successDelete(data);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseMessage<PendingItemModel> findById(@PathVariable Integer id) {
+        PendingItem entity = pendingItemService.findById(id);
+
+        ModelMapper modelMapper = new ModelMapper();
+        PendingItemModel data = modelMapper.map(entity, PendingItemModel.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<PendingItemRequest>> findAll(
-            @RequestParam(required = false) String name, Integer quantity, String age,
-                                            String status, String description, Partner partner,
+    public ResponseMessage<PageableList<PendingItemModel>> findAll(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String age,
+            @RequestParam(required = false) Integer price,
+            @RequestParam(required = false) StatusItem status,
+            @RequestParam(required = false) String picture,
+            @RequestParam(required = false) Partner partner,
+            @RequestParam(required = false) Variety variety,
             @RequestParam(defaultValue = "asc") String sort,
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
-
         if (size > 100) {
             size = 100;
         }
 
-        PendingItem entity = new PendingItem(name, quantity, age, status, description, partner);
-
-        Sort.Direction direction = Sort.Direction.fromOptionalString(sort.toUpperCase())
+        PendingItem entity = new PendingItem(name, brand, age, price, status, picture, partner, variety);
+        Sort.Direction direction = Sort.Direction
+                .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
-        Page<PendingItem> pagePendingItem = service.findAll(entity, page, size, direction);
-        List<PendingItem> pendingItems = pagePendingItem.toList();
+        Page<PendingItem> pagePendingItems = pendingItemService.findAll(entity, page, size, direction);
+        List<PendingItem> items = pagePendingItems.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<PendingItemRequest>>() {
+        Type type = new TypeToken<List<PendingItemModel>>() {
         }.getType();
-
-        List<PendingItemRequest> models = modelMapper.map(pendingItems, type);
-        PageableList<PendingItemRequest> data = new PageableList<>(models,pagePendingItem.getNumber(),
-                                            pagePendingItem.getSize(), pagePendingItem.getTotalElements());
+        List<PendingItemModel> itemModels = modelMapper.map(items, type);
+        PageableList<PendingItemModel> data = new PageableList(itemModels, pagePendingItems.getNumber(),
+                pagePendingItems.getSize(), pagePendingItems.getTotalElements());
 
         return ResponseMessage.success(data);
     }

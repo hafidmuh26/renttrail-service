@@ -1,8 +1,6 @@
 package batchfour.teamtwo.renttrailservice.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,33 +9,18 @@ public class Item extends AbstractEntity {
 
     private String name;
     private Integer price;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Brand brand;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Variety variety;
-
+    private String brand;
+    private String variety;
     private String picture;
 
     public Item() {
     }
 
-    public Item(String name, Integer price, Brand brand, Variety variety, String picture) {
+    public Item(String name, Integer price, String brand, String variety, String picture) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.variety = variety;
-        this.picture = picture;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -57,26 +40,27 @@ public class Item extends AbstractEntity {
         this.price = price;
     }
 
-    public Brand getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public void setBrand(Brand brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 
-    public Variety getVariety() {
+    public String getVariety() {
         return variety;
     }
 
-    public void setVariety(Variety variety) {
+    public void setVariety(String variety) {
         this.variety = variety;
     }
 
-    @Override
-    public String toString() {
-        return "{" + " name='" + getName() + "'" + ", price='" + getPrice() + "'" + ", brand='" + getBrand() + "'"
-                + ", variety='" + getVariety() + "'" + ", picture='" + getPicture() + "'" + "}";
+    public String getPicture() {
+        return picture;
     }
 
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 }

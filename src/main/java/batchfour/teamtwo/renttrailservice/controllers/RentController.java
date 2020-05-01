@@ -44,7 +44,7 @@ public class RentController {
         Item item = itemService.findById(request.getItemId());
         User user = userService.finById(request.getUserId());
 
-        Rent entity = rentService.save(new Rent(request.getTotalRent(), request.getTotalPrice(), 
+        Rent entity = rentService.save(new Rent(request.getTotalPrice(),
         request.getDateStart(), request.getDateEnd(), item, user));
 
         RentModel data = modelMapper.map(entity, RentModel.class);
@@ -57,7 +57,6 @@ public class RentController {
 
         Rent entity = rentService.findById(id);
 
-        entity.setTotalRent(request.getTotalRent());
         entity.setTotalPrice(request.getTotalPrice());
         entity.setDateStart(request.getDateStart());
         entity.setDateEnd(request.getDateEnd());
@@ -67,7 +66,7 @@ public class RentController {
         entity = rentService.save(entity);
 
         RentModel data = modelMapper.map(entity, RentModel.class);
-        return ResponseMessage.successEdit(data);        
+        return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
@@ -93,7 +92,6 @@ public class RentController {
 
     @GetMapping
     public ResponseMessage<PageableList<RentModel>> findAll(
-            @RequestParam(required = false) Integer totalRent,
             @RequestParam(required = false) Integer totalPrice,
             @RequestParam(required = false) LocalDate dateStart,
             @RequestParam(required = false) LocalDate dateEnd,
@@ -106,7 +104,7 @@ public class RentController {
         if (size > 100) {
             size = 100;
         }
-        Rent entity = new Rent(totalRent, totalPrice, dateStart, dateEnd, item, user);
+        Rent entity = new Rent(totalPrice, dateStart, dateEnd, item, user);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);

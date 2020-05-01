@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import batchfour.teamtwo.renttrailservice.entities.PendingItem;
+import batchfour.teamtwo.renttrailservice.services.PendingItemService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +39,15 @@ public class StockController {
     private StockService stockService;
 
     @Autowired
-    private ItemService itemService;
+    private PendingItemService pendingItemService;
 
     @PostMapping
     public ResponseMessage<StockModel> add(@RequestBody @Valid StockRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
-        Item item = itemService.findById(request.getItemId());
+        PendingItem pendingItem = pendingItemService.findById(request.getItemId());
 
-        Stock entity = stockService.save(new Stock(item, request.getQuantity()));
+        Stock entity = stockService.save(new Stock(pendingItem, request.getQuantity()));
 
         StockModel data = modelMapper.map(entity, StockModel.class);
         return ResponseMessage.successAdd(data);
@@ -57,13 +59,13 @@ public class StockController {
 
         Stock entity = stockService.findById(id);
 
-        entity.setItem(itemService.findById(request.getItemId()));
+        entity.setPendingItem(pendingItemService.findById(request.getItemId()));
         entity.setQuantity(request.getQuantity());
 
         entity = stockService.save(entity);
 
         StockModel data = modelMapper.map(entity, StockModel.class);
-        return ResponseMessage.successEdit(data);        
+        return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
@@ -88,7 +90,7 @@ public class StockController {
 
     @GetMapping
     public ResponseMessage<PageableList<StockModel>> findAll(
-            @RequestParam(required = false) Item item,
+            @RequestParam(required = false) PendingItem item,
             @RequestParam(required = false) Integer quantity,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,

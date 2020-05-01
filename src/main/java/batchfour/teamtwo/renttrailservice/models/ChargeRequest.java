@@ -4,21 +4,24 @@ public class ChargeRequest {
 
     private String description;
     private Integer price;
-    private Integer ItemId;
-    private Integer UserId;
+    private Integer itemId;
+    private Integer userId;
+    private Integer rentId;
 
     public ChargeRequest() {
     }
 
-    public ChargeRequest(String description, Integer price, Integer ItemId, Integer UserId) {
+    public ChargeRequest(String description, Integer price,
+                         Integer itemId, Integer userId, Integer rentId) {
         this.description = description;
         this.price = price;
-        this.ItemId = ItemId;
-        this.UserId = UserId;
+        this.itemId = itemId;
+        this.userId = userId;
+        this.rentId = rentId;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -26,7 +29,7 @@ public class ChargeRequest {
     }
 
     public Integer getPrice() {
-        return this.price;
+        return price;
     }
 
     public void setPrice(Integer price) {
@@ -34,19 +37,26 @@ public class ChargeRequest {
     }
 
     public Integer getItemId() {
-        return this.ItemId;
+        return itemId;
     }
 
-    public void setItemId(Integer ItemId) {
-        this.ItemId = ItemId;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getUserId() {
-        return this.UserId;
+        return userId;
     }
 
-    public void setUserId(Integer UserId) {
-        this.UserId = UserId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
+    public Integer getRentId() {
+        return rentId;
+    }
+
+    public void setRentId(Integer rentId) {
+        this.rentId = rentId;
+    }
 }

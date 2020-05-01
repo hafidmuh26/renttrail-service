@@ -5,22 +5,25 @@ public class ChargeModel {
     private Integer id;
     private String description;
     private Integer price;
-    private ItemModel item;
+    private ItemRequest item;
     private UserRequest user;
+    private RentRequest rent;
 
     public ChargeModel() {
     }
 
-    public ChargeModel(Integer id, String description, Integer price, ItemModel item, UserRequest user) {
+    public ChargeModel(Integer id, String description, Integer price,
+                       ItemRequest item, UserRequest user, RentRequest rent) {
         this.id = id;
         this.description = description;
         this.price = price;
         this.item = item;
         this.user = user;
+        this.rent = rent;
     }
 
     public Integer getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Integer id) {
@@ -28,7 +31,7 @@ public class ChargeModel {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -36,27 +39,34 @@ public class ChargeModel {
     }
 
     public Integer getPrice() {
-        return this.price;
+        return price;
     }
 
     public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public ItemModel getItem() {
-        return this.item;
+    public ItemRequest getItem() {
+        return item;
     }
 
-    public void setItem(ItemModel item) {
+    public void setItem(ItemRequest item) {
         this.item = item;
     }
 
     public UserRequest getUser() {
-        return this.user;
+        return user;
     }
 
     public void setUser(UserRequest user) {
         this.user = user;
     }
 
+    public RentRequest getRent() {
+        return rent;
+    }
+
+    public void setRent(RentRequest rent) {
+        this.rent = rent;
+    }
 }

@@ -2,29 +2,31 @@ package batchfour.teamtwo.renttrailservice.models;
 
 public class ItemRequest {
 
+    private Integer id;
     private String name;
     private Integer price;
-    private Integer brandId;
-    private Integer varietyId;
+    private String brand;
+    private String variety;
     private String picture;
 
     public ItemRequest() {
     }
 
-    public ItemRequest(String name, Integer price, Integer brandId, Integer varietyId, String picture) {
+    public ItemRequest(Integer id, String name, Integer price, String brand, String variety, String picture) {
+        this.id = id;
         this.name = name;
         this.price = price;
-        this.brandId = brandId;
-        this.varietyId = varietyId;
+        this.brand = brand;
+        this.variety = variety;
         this.picture = picture;
     }
 
-    public String getPicture() {
-        return picture;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,19 +45,27 @@ public class ItemRequest {
         this.price = price;
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public Integer getVarietyId() {
-        return varietyId;
+    public String getVariety() {
+        return variety;
     }
 
-    public void setVarietyId(Integer varietyId) {
-        this.varietyId = varietyId;
+    public void setVariety(String variety) {
+        this.variety = variety;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class RentRequest {
 
-    private Integer totalRent;
     private Integer totalPrice;
     private LocalDate dateStart;
     private LocalDate dateEnd;
@@ -14,9 +13,7 @@ public class RentRequest {
     public RentRequest() {
     }
 
-    public RentRequest(Integer totalRent, Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Integer itemId,
-            Integer userId) {
-        this.totalRent = totalRent;
+    public RentRequest(Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Integer itemId, Integer userId) {
         this.totalPrice = totalPrice;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -24,16 +21,8 @@ public class RentRequest {
         this.userId = userId;
     }
 
-    public Integer getTotalRent() {
-        return this.totalRent;
-    }
-
-    public void setTotalRent(Integer totalRent) {
-        this.totalRent = totalRent;
-    }
-
     public Integer getTotalPrice() {
-        return this.totalPrice;
+        return totalPrice;
     }
 
     public void setTotalPrice(Integer totalPrice) {
@@ -41,7 +30,7 @@ public class RentRequest {
     }
 
     public LocalDate getDateStart() {
-        return this.dateStart;
+        return dateStart;
     }
 
     public void setDateStart(LocalDate dateStart) {
@@ -49,7 +38,7 @@ public class RentRequest {
     }
 
     public LocalDate getDateEnd() {
-        return this.dateEnd;
+        return dateEnd;
     }
 
     public void setDateEnd(LocalDate dateEnd) {
@@ -57,7 +46,7 @@ public class RentRequest {
     }
 
     public Integer getItemId() {
-        return this.itemId;
+        return itemId;
     }
 
     public void setItemId(Integer itemId) {
@@ -65,11 +54,10 @@ public class RentRequest {
     }
 
     public Integer getUserId() {
-        return this.userId;
+        return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 }

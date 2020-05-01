@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import batchfour.teamtwo.renttrailservice.entities.Rent;
+import batchfour.teamtwo.renttrailservice.services.RentService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,21 +46,25 @@ public class ChargeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RentService rentService;
+
     @PostMapping
     public ResponseMessage<ChargeModel> add(@RequestBody @Valid ChargeRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
         Item item = itemService.findById(request.getItemId());
         User user = userService.finById(request.getUserId());
-        
-        Charge entity = chargeService.save(new Charge(request.getDescription(), request.getPrice(), user, item));
+        Rent rent = rentService.findById(request.getRentId());
+
+        Charge entity = chargeService.save(new Charge(request.getDescription(), request.getPrice(), user, item, rent));
 
         ChargeModel data = modelMapper.map(entity, ChargeModel.class);
         return ResponseMessage.successAdd(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<ChargeModel> edit(@PathVariable Integer id, @RequestBody @Valid ChargeRequest request){
+    public ResponseMessage<ChargeModel> edit(@PathVariable Integer id, @RequestBody @Valid ChargeRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
         Charge entity = chargeService.findById(id);
@@ -67,11 +73,12 @@ public class ChargeController {
         entity.setPrice(request.getPrice());
         entity.setUser(userService.finById(request.getUserId()));
         entity.setItem(itemService.findById(request.getItemId()));
+        entity.setRent(rentService.findById(request.getRentId()));
 
         entity = chargeService.save(entity);
 
         ChargeModel data = modelMapper.map(entity, ChargeModel.class);
-        return ResponseMessage.successEdit(data);        
+        return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
@@ -100,6 +107,7 @@ public class ChargeController {
             @RequestParam(required = false) Integer price,
             @RequestParam(required = false) Item item,
             @RequestParam(required = false) User user,
+            @RequestParam(required = false) Rent rent,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -108,7 +116,7 @@ public class ChargeController {
             size = 100;
         }
 
-        Charge entity = new Charge(description, price, user, item);
+        Charge entity = new Charge(description, price, user, item, rent);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
