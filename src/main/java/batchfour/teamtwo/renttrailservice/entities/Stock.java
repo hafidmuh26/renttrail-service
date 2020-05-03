@@ -8,24 +8,23 @@ import javax.persistence.Table;
 @Table(name="stock")
 public class Stock extends AbstractEntity {
 
-    private Integer quantity;
-
     @OneToOne
-    private PendingItem item;
+    private Item item;
+    private Integer quantity;
 
     public Stock() {
     }
 
-    public Stock(PendingItem item, Integer quantity) {
+    public Stock(Item item, Integer quantity) {
         this.item = item;
         this.quantity = quantity;
     }
 
-    public PendingItem getPendingItem() {
+    public Item getItem() {
         return this.item;
     }
 
-    public void setPendingItem(PendingItem item) {
+    public void setItem(Item item) {
         this.item = item;
     }
 

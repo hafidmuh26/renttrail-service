@@ -1,39 +1,26 @@
 package batchfour.teamtwo.renttrailservice.models;
 
+import batchfour.teamtwo.renttrailservice.entities.Partner;
+
 public class PendingItemRequest {
 
-    private Integer id;
     private String name;
-    private String brand;
+    private Integer quantity;
     private String age;
-    private Integer price;
     private String status;
-    private String picture;
-    private PartnerRequest partner;
-    private VarietyRequest variety;
+    private String description;
+    private Integer partner;
 
     public PendingItemRequest() {
     }
 
-    public PendingItemRequest(Integer id, String name, String brand, String age, Integer price,
-                              String status, String picture, PartnerRequest partner, VarietyRequest variety) {
-        this.id = id;
+    public PendingItemRequest(String name, Integer quantity, String age, String status, String description, Integer partner) {
         this.name = name;
-        this.brand = brand;
+        this.quantity = quantity;
         this.age = age;
-        this.price = price;
         this.status = status;
-        this.picture = picture;
+        this.description = description;
         this.partner = partner;
-        this.variety = variety;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,12 +31,12 @@ public class PendingItemRequest {
         this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getAge() {
@@ -60,14 +47,6 @@ public class PendingItemRequest {
         this.age = age;
     }
 
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -76,27 +55,19 @@ public class PendingItemRequest {
         this.status = status;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public PartnerRequest getPartner() {
+    public Integer getPartner() {
         return partner;
     }
 
-    public void setPartner(PartnerRequest partner) {
+    public void setPartner(Integer partner) {
         this.partner = partner;
-    }
-
-    public VarietyRequest getVariety() {
-        return variety;
-    }
-
-    public void setVariety(VarietyRequest variety) {
-        this.variety = variety;
     }
 }

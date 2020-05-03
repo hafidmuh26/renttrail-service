@@ -1,5 +1,4 @@
 package batchfour.teamtwo.renttrailservice.entities;
-
 import javax.persistence.*;
 
 @Table(name = "user")
@@ -77,12 +76,4 @@ public class User extends AbstractEntity {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
-    @Override
-    public String toString() {
-        return "{" + " name='" + getName() + "'" + ", nik='" + getNik() + "'" + ", noHp='" + getNoHp() + "'"
-                + ", address='" + getAddress() + "'" + ", gender='" + getGender() + "'" + ", picture='" + getPicture()
-                + "'" + "}";
-    }
-
 }

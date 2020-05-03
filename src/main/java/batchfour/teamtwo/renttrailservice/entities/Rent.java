@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "rent")
 public class Rent extends AbstractEntity {
 
+    private Integer totalRent;
     private Integer totalPrice;
     private LocalDate dateStart;
     private LocalDate dateEnd;
@@ -26,8 +27,25 @@ public class Rent extends AbstractEntity {
     public Rent() {
     }
 
+    public Rent(Integer totalRent, Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Item item, User user) {
+        this.totalRent = totalRent;
+        this.totalPrice = totalPrice;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.item = item;
+        this.user = user;
+    }
+
+    public Integer getTotalRent() {
+        return this.totalRent;
+    }
+
+    public void setTotalRent(Integer totalRent) {
+        this.totalRent = totalRent;
+    }
+
     public Integer getTotalPrice() {
-        return totalPrice;
+        return this.totalPrice;
     }
 
     public void setTotalPrice(Integer totalPrice) {
@@ -35,7 +53,7 @@ public class Rent extends AbstractEntity {
     }
 
     public LocalDate getDateStart() {
-        return dateStart;
+        return this.dateStart;
     }
 
     public void setDateStart(LocalDate dateStart) {
@@ -43,7 +61,7 @@ public class Rent extends AbstractEntity {
     }
 
     public LocalDate getDateEnd() {
-        return dateEnd;
+        return this.dateEnd;
     }
 
     public void setDateEnd(LocalDate dateEnd) {
@@ -51,7 +69,7 @@ public class Rent extends AbstractEntity {
     }
 
     public Item getItem() {
-        return item;
+        return this.item;
     }
 
     public void setItem(Item item) {
@@ -59,18 +77,11 @@ public class Rent extends AbstractEntity {
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public Rent(Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Item item, User user) {
-        this.totalPrice = totalPrice;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.item = item;
-        this.user = user;
-    }
 }

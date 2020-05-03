@@ -3,37 +3,30 @@ package batchfour.teamtwo.renttrailservice.entities;
 
 import javax.persistence.*;
 
-@Table(name = "pending_item")
+@Table(name="pending_item")
 @Entity
 public class PendingItem extends AbstractEntity {
 
     private String name;
-    private String brand;
+    private Integer quantity;
     private String age;
-    private Integer price;
-    private StatusItem status;
-    private String picture;
+    private String status;
+    private String description;
 
     @JoinColumn(nullable = false)
     @ManyToOne
     private Partner partner;
 
-    @JoinColumn(nullable = false)
-    @OneToOne
-    private Variety variety;
-
     public PendingItem() {
     }
 
-    public PendingItem(String name, String brand, String age, Integer price, StatusItem status, String picture, Partner partner, Variety variety) {
+    public PendingItem(String name, Integer quantity, String age, String status, String description, Partner partner) {
         this.name = name;
-        this.brand = brand;
+        this.quantity = quantity;
         this.age = age;
-        this.price = price;
         this.status = status;
-        this.picture = picture;
+        this.description = description;
         this.partner = partner;
-        this.variety = variety;
     }
 
     public String getName() {
@@ -44,12 +37,12 @@ public class PendingItem extends AbstractEntity {
         this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getAge() {
@@ -60,20 +53,20 @@ public class PendingItem extends AbstractEntity {
         this.age = age;
     }
 
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public StatusItem getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(StatusItem status) {
+    public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Partner getPartner() {
@@ -82,21 +75,5 @@ public class PendingItem extends AbstractEntity {
 
     public void setPartner(Partner partner) {
         this.partner = partner;
-    }
-
-    public Variety getVariety() {
-        return variety;
-    }
-
-    public void setVariety(Variety variety) {
-        this.variety = variety;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 }
