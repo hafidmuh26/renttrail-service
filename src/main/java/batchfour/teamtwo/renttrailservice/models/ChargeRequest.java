@@ -2,35 +2,23 @@ package batchfour.teamtwo.renttrailservice.models;
 
 public class ChargeRequest {
 
-    private Integer id;
     private String description;
     private Integer price;
-    private ItemRequest item;
-    private UserRequest user;
-    private RentRequest rent;
+    private Integer ItemId;
+    private Integer UserId;
 
     public ChargeRequest() {
     }
 
-    public ChargeRequest(Integer id, String description, Integer price, ItemRequest item, UserRequest user, RentRequest rent) {
-        this.id = id;
+    public ChargeRequest(String description, Integer price, Integer ItemId, Integer UserId) {
         this.description = description;
         this.price = price;
-        this.item = item;
-        this.user = user;
-        this.rent = rent;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.ItemId = ItemId;
+        this.UserId = UserId;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -38,34 +26,27 @@ public class ChargeRequest {
     }
 
     public Integer getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public ItemRequest getItem() {
-        return item;
+    public Integer getItemId() {
+        return this.ItemId;
     }
 
-    public void setItem(ItemRequest item) {
-        this.item = item;
+    public void setItemId(Integer ItemId) {
+        this.ItemId = ItemId;
     }
 
-    public UserRequest getUser() {
-        return user;
+    public Integer getUserId() {
+        return this.UserId;
     }
 
-    public void setUser(UserRequest user) {
-        this.user = user;
+    public void setUserId(Integer UserId) {
+        this.UserId = UserId;
     }
 
-    public RentRequest getRent() {
-        return rent;
-    }
-
-    public void setRent(RentRequest rent) {
-        this.rent = rent;
-    }
 }

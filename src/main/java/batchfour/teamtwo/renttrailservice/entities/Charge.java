@@ -21,24 +21,18 @@ public class Charge extends AbstractEntity {
     @JoinColumn(nullable = false)
     private Item item;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Rent rent;
-
-
     public Charge() {
     }
 
-    public Charge(String description, Integer price, User user, Item item, Rent rent) {
+    public Charge(String description, Integer price, User user, Item item) {
         this.description = description;
         this.price = price;
         this.user = user;
         this.item = item;
-        this.rent = rent;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -46,7 +40,7 @@ public class Charge extends AbstractEntity {
     }
 
     public Integer getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(Integer price) {
@@ -54,7 +48,7 @@ public class Charge extends AbstractEntity {
     }
 
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(User user) {
@@ -62,18 +56,11 @@ public class Charge extends AbstractEntity {
     }
 
     public Item getItem() {
-        return item;
+        return this.item;
     }
 
     public void setItem(Item item) {
         this.item = item;
     }
 
-    public Rent getRent() {
-        return rent;
-    }
-
-    public void setRent(Rent rent) {
-        this.rent = rent;
-    }
 }

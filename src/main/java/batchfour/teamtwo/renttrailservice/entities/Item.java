@@ -1,6 +1,8 @@
 package batchfour.teamtwo.renttrailservice.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -9,18 +11,33 @@ public class Item extends AbstractEntity {
 
     private String name;
     private Integer price;
-    private String brand;
-    private String variety;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Brand brand;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Variety variety;
+
     private String picture;
 
     public Item() {
     }
 
-    public Item(String name, Integer price, String brand, String variety, String picture) {
+    public Item(String name, Integer price, Brand brand, Variety variety,String picture) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.variety = variety;
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -40,27 +57,19 @@ public class Item extends AbstractEntity {
         this.price = price;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
-    public String getVariety() {
+    public Variety getVariety() {
         return variety;
     }
 
-    public void setVariety(String variety) {
+    public void setVariety(Variety variety) {
         this.variety = variety;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 }

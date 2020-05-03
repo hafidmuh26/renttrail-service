@@ -8,10 +8,19 @@ import java.nio.file.Path;
 
 public class ItemImageRequest {
 
+    private Integer id;
     private String filename;
     private String url;
     private String type;
     private Long size;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getFilename() {
         return filename;

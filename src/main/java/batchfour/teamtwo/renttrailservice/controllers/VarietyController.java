@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import batchfour.teamtwo.renttrailservice.entities.Variety;
-import batchfour.teamtwo.renttrailservice.models.VarietyRequest;
+import batchfour.teamtwo.renttrailservice.models.ExtraItemRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
 import batchfour.teamtwo.renttrailservice.services.VarietyService;
@@ -34,17 +34,17 @@ public class VarietyController {
     private VarietyService service;
 
     @PostMapping
-    public ResponseMessage<VarietyRequest> add(@RequestBody @Valid VarietyRequest request) {
+    public ResponseMessage<ExtraItemRequest> add(@RequestBody @Valid ExtraItemRequest request) {
         Variety entity = service.save(new Variety(request.getName()));
 
         ModelMapper modelMapper = new ModelMapper();
-        VarietyRequest data = modelMapper.map(entity, VarietyRequest.class);
+        ExtraItemRequest data = modelMapper.map(entity, ExtraItemRequest.class);
         return ResponseMessage.successAdd(data);
     }
 
     @PutMapping("/{id}")
-    public ResponseMessage<VarietyRequest> edit(@PathVariable Integer id,
-                                                @RequestBody @Valid VarietyRequest request) {
+    public ResponseMessage<ExtraItemRequest> edit(@PathVariable Integer id,
+            @RequestBody @Valid ExtraItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
         request.setId(id);
         Variety entity = service.findById(id);
@@ -52,34 +52,34 @@ public class VarietyController {
 
         entity = service.save(entity);
 
-        VarietyRequest data = modelMapper.map(entity, VarietyRequest.class);
+        ExtraItemRequest data = modelMapper.map(entity, ExtraItemRequest.class);
         return ResponseMessage.successEdit(data);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseMessage<VarietyRequest> removeById(@PathVariable Integer id) {
+    public ResponseMessage<ExtraItemRequest> removeById(@PathVariable Integer id) {
         Variety entity = service.removeById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        VarietyRequest data = modelMapper.map(entity, VarietyRequest.class);
+        ExtraItemRequest data = modelMapper.map(entity, ExtraItemRequest.class);
 
         return ResponseMessage.successDelete(data);
     }
 
     @GetMapping("/{id}")
-    public ResponseMessage<VarietyRequest> findById(@PathVariable Integer id) {
+    public ResponseMessage<ExtraItemRequest> findById(@PathVariable Integer id) {
         Variety entity = service.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
-        VarietyRequest data = modelMapper.map(entity, VarietyRequest.class);
+        ExtraItemRequest data = modelMapper.map(entity, ExtraItemRequest.class);
 
         return ResponseMessage.success(data);
     }
 
     @GetMapping
-    public ResponseMessage<PageableList<VarietyRequest>> findAll(@RequestParam(required = false) String name,
-                                                                 @RequestParam(defaultValue = "asc") String sort, @RequestParam(defaultValue = "0") int page,
-                                                                 @RequestParam(defaultValue = "10") int size) {
+    public ResponseMessage<PageableList<ExtraItemRequest>> findAll(@RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "asc") String sort, @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
         if (size > 100) {
             size = 100;
         }
@@ -89,10 +89,10 @@ public class VarietyController {
         List<Variety> brands = pageVarietys.toList();
 
         ModelMapper modelMapper = new ModelMapper();
-        Type type = new TypeToken<List<VarietyRequest>>() {
+        Type type = new TypeToken<List<ExtraItemRequest>>() {
         }.getType();
-        List<VarietyRequest> brandModels = modelMapper.map(brands, type);
-        PageableList<VarietyRequest> data = new PageableList(brandModels, pageVarietys.getNumber(),
+        List<ExtraItemRequest> brandModels = modelMapper.map(brands, type);
+        PageableList<ExtraItemRequest> data = new PageableList(brandModels, pageVarietys.getNumber(),
                 pageVarietys.getSize(), pageVarietys.getTotalElements());
 
         return ResponseMessage.success(data);

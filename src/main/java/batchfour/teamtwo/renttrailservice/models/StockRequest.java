@@ -2,40 +2,31 @@ package batchfour.teamtwo.renttrailservice.models;
 
 public class StockRequest {
 
-    private Integer id;
-    private PendingItemRequest item;
+    private Integer itemId;
     private Integer quantity;
 
     public StockRequest() {
     }
 
-    public StockRequest(Integer id, PendingItemRequest item, Integer quantity) {
-        this.id = id;
-        this.item = item;
+    public StockRequest(Integer itemId, Integer quantity) {
+        this.itemId = itemId;
         this.quantity = quantity;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getItemId() {
+        return this.itemId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public PendingItemRequest getItem() {
-        return item;
-    }
-
-    public void setItem(PendingItemRequest item) {
-        this.item = item;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
 }

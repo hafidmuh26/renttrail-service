@@ -4,36 +4,36 @@ import java.time.LocalDate;
 
 public class RentRequest {
 
-    private Integer id;
+    private Integer totalRent;
     private Integer totalPrice;
     private LocalDate dateStart;
     private LocalDate dateEnd;
-    private ItemRequest item;
-    private UserRequest user;
+    private Integer itemId;
+    private Integer userId;
 
     public RentRequest() {
     }
 
-    public RentRequest(Integer id, Integer totalPrice, LocalDate dateStart,
-                       LocalDate dateEnd, ItemRequest item, UserRequest user) {
-        this.id = id;
+    public RentRequest(Integer totalRent, Integer totalPrice, LocalDate dateStart, LocalDate dateEnd, Integer itemId,
+            Integer userId) {
+        this.totalRent = totalRent;
         this.totalPrice = totalPrice;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
-        this.item = item;
-        this.user = user;
+        this.itemId = itemId;
+        this.userId = userId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getTotalRent() {
+        return this.totalRent;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTotalRent(Integer totalRent) {
+        this.totalRent = totalRent;
     }
 
     public Integer getTotalPrice() {
-        return totalPrice;
+        return this.totalPrice;
     }
 
     public void setTotalPrice(Integer totalPrice) {
@@ -41,7 +41,7 @@ public class RentRequest {
     }
 
     public LocalDate getDateStart() {
-        return dateStart;
+        return this.dateStart;
     }
 
     public void setDateStart(LocalDate dateStart) {
@@ -49,26 +49,27 @@ public class RentRequest {
     }
 
     public LocalDate getDateEnd() {
-        return dateEnd;
+        return this.dateEnd;
     }
 
     public void setDateEnd(LocalDate dateEnd) {
         this.dateEnd = dateEnd;
     }
 
-    public ItemRequest getItem() {
-        return item;
+    public Integer getItemId() {
+        return this.itemId;
     }
 
-    public void setItem(ItemRequest item) {
-        this.item = item;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 
-    public UserRequest getUser() {
-        return user;
+    public Integer getUserId() {
+        return this.userId;
     }
 
-    public void setUser(UserRequest user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
+
 }
