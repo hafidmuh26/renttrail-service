@@ -2,48 +2,46 @@ package batchfour.teamtwo.renttrailservice.models;
 
 import batchfour.teamtwo.renttrailservice.validation.annotations.MaxLength;
 import batchfour.teamtwo.renttrailservice.validation.annotations.MinLength;
-
 import javax.validation.constraints.NotBlank;
 
-public class PartnerRequest {
+public class UserRequest {
 
     private Integer id;
 
     @MinLength(3)
     @MaxLength(20)
-    @NotBlank(message = "Name can't banlk!")
+    @NotBlank(message = "Name can't blankk!")
     private String name;
 
-    private String owner;
+//    @MaxLength(16)
+//    @MinLength(16)
+    @NotBlank(message = "Nik can't blankk!")
+    private String nik;
 
-    @NotBlank(message = "Telephone can't banlk!")
-    private String telp;
+    @NotBlank(message = "Number Handphone can't blank!")
+    private String noHp;
 
-    @NotBlank(message = "Address can't banlk!")
+    @NotBlank(message = "Address can't blankk!")
     private String address;
 
+    @NotBlank(message = "Gender can't blank")
+    private String gender;
     private String picture;
 
     private AccountRequest account;
 
-    public PartnerRequest() {
+    public UserRequest() {
     }
 
-    public PartnerRequest(Integer id, String name, String owner, String telp, String address, String picture, AccountRequest account) {
+    public UserRequest(Integer id, String name, String nik, String noHp, String address, String gender, String picture, AccountRequest account) {
         this.id = id;
         this.name = name;
-        this.telp = telp;
+        this.nik = nik;
+        this.noHp = noHp;
         this.address = address;
+        this.gender = gender;
         this.picture = picture;
         this.account = account;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     public AccountRequest getAccount() {
@@ -62,6 +60,14 @@ public class PartnerRequest {
         this.picture = picture;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -70,12 +76,20 @@ public class PartnerRequest {
         this.name = name;
     }
 
-    public String getTelp() {
-        return telp;
+    public String getNik() {
+        return nik;
     }
 
-    public void setTelp(String telp) {
-        this.telp = telp;
+    public void setNik(String nik) {
+        this.nik = nik;
+    }
+
+    public String getNoHp() {
+        return noHp;
+    }
+
+    public void setNoHp(String noHp) {
+        this.noHp = noHp;
     }
 
     public String getAddress() {
@@ -86,11 +100,11 @@ public class PartnerRequest {
         this.address = address;
     }
 
-    public Integer getId() {
-        return id;
+    public String getGender() {
+        return gender;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

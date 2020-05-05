@@ -1,38 +1,36 @@
 package batchfour.teamtwo.renttrailservice.entities;
-
 import javax.persistence.*;
 
-@Table(name = "partner")
+@Table(name = "user")
 @Entity
-public class Partner extends AbstractEntity{
+public class User extends AbstractEntity {
 
     private String name;
-    private String owner;
-    private String telp;
+
+    private String nik;
+
+    private String noHp;
+
     private String address;
+
+    private String gender;
+
     private String picture;
 
     @OneToOne
     private Account account;
 
-    public Partner() {
+    public User() {
     }
 
-    public Partner(String name, String owner, String telp, String address, String picture, Account account) {
+    public User(String name, String nik, String noHp, String address, String gender, String picture, Account account) {
         this.name = name;
-        this.owner = owner;
-        this.telp = telp;
+        this.nik = nik;
+        this.noHp = noHp;
         this.address = address;
+        this.gender = gender;
         this.picture = picture;
         this.account = account;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     public Account getAccount() {
@@ -59,12 +57,20 @@ public class Partner extends AbstractEntity{
         this.name = name;
     }
 
-    public String getTelp() {
-        return telp;
+    public String getNik() {
+        return nik;
     }
 
-    public void setTelp(String telp) {
-        this.telp = telp;
+    public void setNik(String nik) {
+        this.nik = nik;
+    }
+
+    public String getNoHp() {
+        return noHp;
+    }
+
+    public void setNoHp(String noHp) {
+        this.noHp = noHp;
     }
 
     public String getAddress() {
@@ -75,4 +81,11 @@ public class Partner extends AbstractEntity{
         this.address = address;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }

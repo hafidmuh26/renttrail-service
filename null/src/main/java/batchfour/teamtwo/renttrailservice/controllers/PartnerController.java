@@ -50,12 +50,8 @@ public class PartnerController {
                                                 @RequestBody @Valid PartnerRequest model) {
 
         ModelMapper modelMapper = new ModelMapper();
-<<<<<<< Updated upstream
         Account account = accountService.findById(model.getAccount().getId());
         model.setId(id);
-=======
-
->>>>>>> Stashed changes
         Partner entity = service.findById(id);
 
         entity.setName(model.getName());
@@ -63,12 +59,7 @@ public class PartnerController {
         entity.setAddress(model.getAddress());
         entity.setTelp(model.getTelp());
         entity.setPicture(model.getPicture());
-<<<<<<< Updated upstream
         entity.setAccount(account);
-=======
-
-        entity = service.save(entity);
->>>>>>> Stashed changes
 
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
 
@@ -88,7 +79,7 @@ public class PartnerController {
     @DeleteMapping("/{id}")
     public ResponseMessage<PartnerRequest> removeById(@PathVariable Integer id) {
 
-        Partner entity = service.removeById(id);
+        Partner entity = service.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
