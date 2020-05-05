@@ -1,9 +1,8 @@
 package batchfour.teamtwo.renttrailservice.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table(name = "outlet")
+@Table(name = "partner")
 @Entity
 public class Partner extends AbstractEntity{
 
@@ -12,14 +11,26 @@ public class Partner extends AbstractEntity{
     private String address;
     private String picture;
 
+    @OneToOne
+    private Account account;
+
     public Partner() {
     }
 
-    public Partner(String name, String telp, String address, String picture) {
+    public Partner(String name, String telp, String address, String picture, Account account) {
         this.name = name;
         this.telp = telp;
         this.address = address;
         this.picture = picture;
+        this.account = account;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getPicture() {
@@ -53,4 +64,5 @@ public class Partner extends AbstractEntity{
     public void setAddress(String address) {
         this.address = address;
     }
+
 }

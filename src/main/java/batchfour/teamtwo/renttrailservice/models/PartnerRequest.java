@@ -22,15 +22,26 @@ public class PartnerRequest {
 
     private String picture;
 
+    private AccountRequest account;
+
     public PartnerRequest() {
     }
 
-    public PartnerRequest(Integer id, String name, String telp, String address, String picture) {
+    public PartnerRequest(Integer id, String name, String telp, String address, String picture, AccountRequest account) {
         this.id = id;
         this.name = name;
         this.telp = telp;
         this.address = address;
         this.picture = picture;
+        this.account = account;
+    }
+
+    public AccountRequest getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountRequest account) {
+        this.account = account;
     }
 
     public String getPicture() {

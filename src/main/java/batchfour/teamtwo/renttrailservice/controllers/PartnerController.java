@@ -1,10 +1,14 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
 
+import batchfour.teamtwo.renttrailservice.entities.Account;
+import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.models.PartnerRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
+import batchfour.teamtwo.renttrailservice.services.AccountService;
+import batchfour.teamtwo.renttrailservice.services.ItemService;
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -26,9 +30,14 @@ public class PartnerController {
     @Autowired
     private PartnerService service;
 
+    @Autowired
+    private AccountService accountService;
+
     @PostMapping
     public ResponseMessage<PartnerRequest> save(@RequestBody @Valid PartnerRequest model) {
-        Partner entity = service.save(new Partner(model.getName(), model.getTelp(), model.getAddress(),model.getPicture()));
+        Account account = accountService.findById(model.getAccount().getId());
+
+        Partner entity = service.save(new Partner(model.getName(), model.getTelp(), model.getAddress(),model.getPicture(), account));
 
         ModelMapper modelMapper = new ModelMapper();
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
@@ -41,13 +50,15 @@ public class PartnerController {
                                                 @RequestBody @Valid PartnerRequest model) {
 
         ModelMapper modelMapper = new ModelMapper();
-
+        Account account = accountService.findById(model.getAccount().getId());
         model.setId(id);
         Partner entity = service.findById(id);
 
         entity.setName(model.getName());
         entity.setAddress(model.getAddress());
         entity.setTelp(model.getTelp());
+        entity.setPicture(model.getPicture());
+        entity.setAccount(account);
 
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
 
@@ -77,7 +88,7 @@ public class PartnerController {
 
     @GetMapping
     public ResponseMessage<PageableList<PartnerRequest>> findAll(
-            @RequestParam(required = false) String name, String telp, String address, String picture,
+            @RequestParam(required = false) String name, String telp, String address, String picture, Account account,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size ) {
@@ -86,7 +97,7 @@ public class PartnerController {
         size = 100;
     }
 
-        Partner entity = new Partner(name, telp,address, picture);
+        Partner entity = new Partner(name, telp,address, picture, account);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);

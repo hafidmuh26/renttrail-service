@@ -13,8 +13,8 @@ public class UserRequest {
     @NotBlank(message = "Name can't blankk!")
     private String name;
 
-    @MaxLength(16)
-    @MinLength(16)
+//    @MaxLength(16)
+//    @MinLength(16)
     @NotBlank(message = "Nik can't blankk!")
     private String nik;
 
@@ -28,10 +28,12 @@ public class UserRequest {
     private String gender;
     private String picture;
 
+    private AccountRequest account;
+
     public UserRequest() {
     }
 
-    public UserRequest(Integer id, String name, String nik, String noHp, String address, String gender, String picture) {
+    public UserRequest(Integer id, String name, String nik, String noHp, String address, String gender, String picture, AccountRequest account) {
         this.id = id;
         this.name = name;
         this.nik = nik;
@@ -39,6 +41,15 @@ public class UserRequest {
         this.address = address;
         this.gender = gender;
         this.picture = picture;
+        this.account = account;
+    }
+
+    public AccountRequest getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountRequest account) {
+        this.account = account;
     }
 
     public String getPicture() {

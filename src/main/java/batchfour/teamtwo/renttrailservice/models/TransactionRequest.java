@@ -4,16 +4,14 @@ public class TransactionRequest {
 
     private Integer id;
     private Integer grandTotal;
-    private String status;
     private RentRequest rent;
 
     public TransactionRequest() {
     }
 
-    public TransactionRequest(Integer id, Integer grandTotal, String status, RentRequest rent) {
+    public TransactionRequest(Integer id, Integer grandTotal, RentRequest rent) {
         this.id = id;
         this.grandTotal = grandTotal;
-        this.status = status;
         this.rent = rent;
     }
 
@@ -31,14 +29,6 @@ public class TransactionRequest {
 
     public void setGrandTotal(Integer grandTotal) {
         this.grandTotal = grandTotal;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public RentRequest getRent() {

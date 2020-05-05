@@ -33,8 +33,7 @@ public class TransactionController {
 
         Rent rent = rentService.findById(request.getRent().getId());
 
-        Transaction entity = transactionService.save(new Transaction(request.getGrandTotal(),
-                StatusTransaction.fromValue(request.getStatus()), rent));
+        Transaction entity = transactionService.save(new Transaction(request.getGrandTotal(), rent));
 
         TransactionRequest data = modelMapper.map(entity, TransactionRequest.class);
         return ResponseMessage.successAdd(data);
@@ -47,7 +46,6 @@ public class TransactionController {
         Transaction entity = transactionService.findById(id);
 
         entity.setGrandTotal(request.getGrandTotal());
-        entity.setStatus(StatusTransaction.fromValue(request.getStatus()));
         entity.setRent(rentService.findById(request.getRent().getId()));
 
         entity = transactionService.save(entity);
@@ -80,7 +78,6 @@ public class TransactionController {
     @GetMapping
     public ResponseMessage<PageableList<TransactionRequest>> findAll(
             @RequestParam(required = false) Integer grandTotal,
-            @RequestParam(required = false) StatusTransaction status,
             @RequestParam(required = false) Rent rent,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
@@ -90,7 +87,7 @@ public class TransactionController {
             size = 100;
         }
 
-        Transaction entity = new Transaction(grandTotal, status, rent);
+        Transaction entity = new Transaction(grandTotal,rent);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);

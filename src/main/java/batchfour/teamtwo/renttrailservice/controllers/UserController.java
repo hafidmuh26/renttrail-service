@@ -1,9 +1,10 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
+import batchfour.teamtwo.renttrailservice.entities.Account;
 import batchfour.teamtwo.renttrailservice.entities.User;
-import batchfour.teamtwo.renttrailservice.models.PageableList;
-import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
-import batchfour.teamtwo.renttrailservice.models.UserRequest;
+import batchfour.teamtwo.renttrailservice.models.*;
+import batchfour.teamtwo.renttrailservice.repositories.AccountRepository;
+import batchfour.teamtwo.renttrailservice.services.AccountService;
 import batchfour.teamtwo.renttrailservice.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/users")
 @RestController
@@ -22,9 +24,14 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private AccountService accountService;
+
     @PostMapping
     public ResponseMessage<UserRequest> save(@RequestBody @Valid UserRequest model) {
-        User entity = service.save(new User(model.getName(), model.getNik(), model.getNoHp(), model.getAddress(), model.getGender(), model.getPicture()));
+        Account account = accountService.findById(model.getAccount().getId());
+
+        User entity = service.save(new User(model.getName(), model.getNik(), model.getNoHp(), model.getAddress(), model.getGender(), model.getPicture(), account));
 
         ModelMapper modelMapper = new ModelMapper();
         UserRequest data = modelMapper.map(entity, UserRequest.class);
@@ -76,7 +83,7 @@ public class UserController {
     @GetMapping
     public ResponseMessage<PageableList<UserRequest>> findAll(
             @RequestParam(required = false) String name, String nik, String noHp, String address,
-                                            String email, String gender,String picture,
+            Account account, String gender, String picture,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -84,7 +91,7 @@ public class UserController {
         if (size > 100) {
             size = 100;
         }
-        User entity = new User(name, nik, noHp, address,gender, picture);
+        User entity = new User(name, nik, noHp, address,gender, picture, account);
         Sort.Direction direction = Sort.Direction
                                 .fromOptionalString(sort.toUpperCase())
                                 .orElse(Sort.Direction.ASC);

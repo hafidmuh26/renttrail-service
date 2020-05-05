@@ -1,8 +1,7 @@
 package batchfour.teamtwo.renttrailservice.models;
 
-public class ItemRequest {
+public class ItemSummaryRequest {
 
-    private Integer id;
     private String name;
     private Integer price;
     private String brand;
@@ -10,25 +9,16 @@ public class ItemRequest {
     private String picture;
     private PartnerRequest partner;
 
-    public ItemRequest() {
+    public ItemSummaryRequest() {
     }
 
-    public ItemRequest(Integer id, String name, Integer price, String brand, String variety, String picture, PartnerRequest partner) {
-        this.id = id;
+    public ItemSummaryRequest(String name, Integer price, String brand, String variety, String picture, PartnerRequest partner) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.variety = variety;
         this.picture = picture;
         this.partner = partner;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

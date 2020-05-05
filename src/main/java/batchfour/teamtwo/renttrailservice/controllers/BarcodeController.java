@@ -8,6 +8,7 @@ import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
+import batchfour.teamtwo.renttrailservice.entities.StatusRent;
 import batchfour.teamtwo.renttrailservice.models.RentRequest;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -64,7 +65,7 @@ public class BarcodeController {
         User user = userService.finById(request.getUser().getId());
 
         Rent rent = rentService.save(new Rent(request.getTotalPrice(), request.getDateStart(),
-                request.getDateEnd(), item, user));
+                request.getDateEnd(), item, user, StatusRent.fromValue(request.getStatus())));
 
         RentRequest temp = modelMapper.map(rent, RentRequest.class);
 

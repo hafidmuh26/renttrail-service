@@ -1,9 +1,7 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
 
-import batchfour.teamtwo.renttrailservice.entities.Item;
-import batchfour.teamtwo.renttrailservice.entities.Rent;
-import batchfour.teamtwo.renttrailservice.entities.User;
+import batchfour.teamtwo.renttrailservice.entities.*;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.RentRequest;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
@@ -43,8 +41,9 @@ public class RentController {
         Item item = itemService.findById(request.getItem().getId());
         User user = userService.finById(request.getUser().getId());
 
+
         Rent entity = rentService.save(new Rent(request.getTotalPrice(),
-                request.getDateStart(), request.getDateEnd(), item, user));
+                request.getDateStart(), request.getDateEnd(), item, user, StatusRent.fromValue(request.getStatus())));
 
         RentRequest data = modelMapper.map(entity, RentRequest.class);
         return ResponseMessage.successAdd(data);
@@ -61,6 +60,7 @@ public class RentController {
         entity.setDateEnd(request.getDateEnd());
         entity.setItem(itemService.findById(request.getItem().getId()));
         entity.setUser(userService.finById(request.getUser().getId()));
+        entity.setStatus(StatusRent.fromValue(request.getStatus()));
 
         entity = rentService.save(entity);
 
@@ -94,6 +94,7 @@ public class RentController {
             @RequestParam(required = false) Integer totalPrice,
             @RequestParam(required = false) LocalDate dateStart,
             @RequestParam(required = false) LocalDate dateEnd,
+            @RequestParam(required = false) StatusRent status,
             @RequestParam(required = false) Item item,
             @RequestParam(required = false) User user,
             @RequestParam(defaultValue = "asc") String sort,
@@ -103,7 +104,7 @@ public class RentController {
         if (size > 100) {
             size = 100;
         }
-        Rent entity = new Rent(totalPrice, dateStart, dateEnd, item, user);
+        Rent entity = new Rent(totalPrice, dateStart, dateEnd, item, user, status);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);

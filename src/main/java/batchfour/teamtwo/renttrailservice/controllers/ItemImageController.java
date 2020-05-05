@@ -8,6 +8,7 @@ import batchfour.teamtwo.renttrailservice.services.ImageService;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,13 +42,16 @@ public class ItemImageController {
     }
 
     @GetMapping("/{filename}")
-    public ResponseEntity<Resource> download(@PathVariable Integer id, @PathVariable String filename) throws IOException {
+    public ResponseEntity<Resource> download(@PathVariable Integer id,
+                                             @PathVariable String filename) throws IOException {
         Item entity = itemService.findById(id);
+
         Resource resource = service.load(entity, filename);
 
         String mediaTypes = URLConnection.guessContentTypeFromName(resource.getFilename());
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType(mediaTypes))
-    //                (.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\""))
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mediaTypes))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
 

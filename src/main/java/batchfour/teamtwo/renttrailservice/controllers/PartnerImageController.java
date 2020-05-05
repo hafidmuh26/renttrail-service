@@ -8,6 +8,7 @@ import batchfour.teamtwo.renttrailservice.services.ImageService;
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class PartnerImageController {
 
         String mediaTypes = URLConnection.guessContentTypeFromName(resource.getFilename());
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mediaTypes))
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
 

@@ -1,6 +1,10 @@
 package batchfour.teamtwo.renttrailservice.entities;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,15 +17,19 @@ public class Item extends AbstractEntity {
     private String variety;
     private String picture;
 
+    @ManyToOne
+    private Partner partner;
+
     public Item() {
     }
 
-    public Item(String name, Integer price, String brand, String variety, String picture) {
+    public Item(String name, Integer price, String brand, String variety, String picture, Partner partner) {
         this.name = name;
         this.price = price;
         this.brand = brand;
         this.variety = variety;
         this.picture = picture;
+        this.partner = partner;
     }
 
     public String getName() {
@@ -62,5 +70,13 @@ public class Item extends AbstractEntity {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
 }

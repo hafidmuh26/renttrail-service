@@ -17,16 +17,28 @@ public class User extends AbstractEntity {
 
     private String picture;
 
+    @OneToOne
+    private Account account;
+
     public User() {
     }
 
-    public User(String name, String nik, String noHp, String address, String gender, String picture) {
+    public User(String name, String nik, String noHp, String address, String gender, String picture, Account account) {
         this.name = name;
         this.nik = nik;
         this.noHp = noHp;
         this.address = address;
         this.gender = gender;
         this.picture = picture;
+        this.account = account;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getPicture() {

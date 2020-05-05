@@ -1,11 +1,15 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
 import batchfour.teamtwo.renttrailservice.entities.Item;
+import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.entities.Variety;
 import batchfour.teamtwo.renttrailservice.models.ItemRequest;
+import batchfour.teamtwo.renttrailservice.models.ItemSummaryRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
+import batchfour.teamtwo.renttrailservice.services.ItemSummaryService;
+import batchfour.teamtwo.renttrailservice.services.PartnerService;
 import batchfour.teamtwo.renttrailservice.services.VarietyService;
 
 import org.modelmapper.ModelMapper;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.List;
 
 @RequestMapping("/items")
@@ -27,14 +32,19 @@ public class ItemController {
     private ItemService itemService;
 
     @Autowired
-    private VarietyService varietyService;
+    private PartnerService partnerService;
+
+    @Autowired
+    private ItemSummaryService summaryService;
 
     @PostMapping
     public ResponseMessage<ItemRequest> add(@RequestBody @Valid ItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
 
+        Partner partner = partnerService.findById(request.getPartner().getId());
+
         Item entity = itemService.save(new Item(request.getName(), request.getPrice(), request.getBrand(),
-                request.getVariety(), request.getPicture()));
+                request.getVariety(), request.getPicture(), partner));
 
         ItemRequest data = modelMapper.map(entity, ItemRequest.class);
         return ResponseMessage.successAdd(data);
@@ -45,12 +55,14 @@ public class ItemController {
         ModelMapper modelMapper = new ModelMapper();
 
         Item entity = itemService.findById(id);
+        Partner partner = partnerService.findById(request.getPartner().getId());
 
         entity.setName(request.getName());
         entity.setPrice(request.getPrice());
         entity.setBrand(request.getBrand());
         entity.setVariety(request.getVariety());
         entity.setPicture(request.getPicture());
+        entity.setPartner(partner);
 
         entity = itemService.save(entity);
 
@@ -85,6 +97,7 @@ public class ItemController {
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) String variety,
             @RequestParam(required = false) String picture,
+            @RequestParam(required = false) Integer partner,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -93,7 +106,12 @@ public class ItemController {
             size = 100;
         }
 
-        Item entity = new Item(name, price, brand, variety, picture);
+        Partner partnerEntity = new Partner();
+        if(partner != null ) {
+            partnerEntity = partnerService.findById(partner);
+        }
+
+        Item entity = new Item(name, price, brand, variety, picture, partnerEntity);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
@@ -108,6 +126,13 @@ public class ItemController {
                 pageItems.getSize(), pageItems.getTotalElements());
 
         return ResponseMessage.success(data);
+    }
+
+    @GetMapping("/summary")
+    public ResponseMessage<List<ItemSummaryRequest>> itemSummary() throws SQLException {
+        List<ItemSummaryRequest> entities = summaryService.itemSummary();
+
+        return ResponseMessage.success(entities);
     }
 
 }

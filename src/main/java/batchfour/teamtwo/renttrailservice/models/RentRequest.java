@@ -10,18 +10,28 @@ public class RentRequest {
     private LocalDate dateEnd;
     private ItemRequest item;
     private UserRequest user;
+    private String status;
 
     public RentRequest() {
     }
 
     public RentRequest(Integer id, Integer totalPrice, LocalDate dateStart,
-                       LocalDate dateEnd, ItemRequest item, UserRequest user) {
+                       LocalDate dateEnd, ItemRequest item, UserRequest user, String status) {
         this.id = id;
         this.totalPrice = totalPrice;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.item = item;
         this.user = user;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getId() {

@@ -8,19 +8,14 @@ public class Transaction extends AbstractEntity {
 
     private Integer grandTotal;
 
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private StatusTransaction status;
-
     @OneToOne
     private Rent rent;
 
     public Transaction() {
     }
 
-    public Transaction(Integer grandTotal, StatusTransaction status, Rent rent) {
+    public Transaction(Integer grandTotal, Rent rent) {
         this.grandTotal = grandTotal;
-        this.status = status;
         this.rent = rent;
     }
 
@@ -30,14 +25,6 @@ public class Transaction extends AbstractEntity {
 
     public void setGrandTotal(Integer grandTotal) {
         this.grandTotal = grandTotal;
-    }
-
-    public StatusTransaction getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusTransaction status) {
-        this.status = status;
     }
 
     public Rent getRent() {
