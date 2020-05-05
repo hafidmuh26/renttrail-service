@@ -8,7 +8,10 @@ import batchfour.teamtwo.renttrailservice.models.ItemSummaryRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
+<<<<<<< Updated upstream
 import batchfour.teamtwo.renttrailservice.services.ItemSummaryService;
+=======
+>>>>>>> Stashed changes
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
 import batchfour.teamtwo.renttrailservice.services.VarietyService;
 
@@ -37,6 +40,9 @@ public class ItemController {
     @Autowired
     private ItemSummaryService summaryService;
 
+    @Autowired
+    private PartnerService partnerService;
+
     @PostMapping
     public ResponseMessage<ItemRequest> add(@RequestBody @Valid ItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
@@ -62,7 +68,11 @@ public class ItemController {
         entity.setBrand(request.getBrand());
         entity.setVariety(request.getVariety());
         entity.setPicture(request.getPicture());
+<<<<<<< Updated upstream
         entity.setPartner(partner);
+=======
+        entity.setPartner(partnerService.findById(request.getPartner().getId()));
+>>>>>>> Stashed changes
 
         entity = itemService.save(entity);
 
@@ -106,12 +116,22 @@ public class ItemController {
             size = 100;
         }
 
+<<<<<<< Updated upstream
         Partner partnerEntity = new Partner();
         if(partner != null ) {
             partnerEntity = partnerService.findById(partner);
         }
 
         Item entity = new Item(name, price, brand, variety, picture, partnerEntity);
+=======
+        Partner partner1 = new Partner();
+
+        if (partner != null){
+            partner1 = partnerService.findById(partner);
+        }
+
+        Item entity = new Item(name, price, brand, variety, picture, partner1);
+>>>>>>> Stashed changes
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);
