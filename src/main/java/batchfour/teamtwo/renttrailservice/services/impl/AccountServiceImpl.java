@@ -13,8 +13,16 @@ public class AccountServiceImpl extends  EntityServiceImpl<Account, Long> implem
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private AccountService service;
+
     @Override
     protected JpaRepository<Account, Long> getRepository() {
         return accountRepository;
+    }
+
+    @Override
+    public Account findByEmail(String email) {
+        return accountRepository.findByEmail(email).orElseThrow();
     }
 }

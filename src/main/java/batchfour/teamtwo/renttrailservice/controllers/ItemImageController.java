@@ -49,14 +49,9 @@ public class ItemImageController {
         Resource resource = service.load(entity, filename);
 
         String mediaTypes = URLConnection.guessContentTypeFromName(resource.getFilename());
-<<<<<<< Updated upstream
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(mediaTypes))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
-=======
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType(mediaTypes))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
->>>>>>> Stashed changes
                 .body(resource);
     }
 

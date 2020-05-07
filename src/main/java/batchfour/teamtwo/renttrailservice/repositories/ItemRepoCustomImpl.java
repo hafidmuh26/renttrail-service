@@ -22,9 +22,8 @@ public class ItemRepoCustomImpl implements ItemRepoCustom {
         CriteriaQuery<ItemSummaryRequest> criteria = builder.createQuery(ItemSummaryRequest.class);
         Root<Item> root = criteria.from(Item.class);
 
-        criteria.multiselect(root.get("name"), root.get("price"), root.get("brand"),
-                root.get("variety"), root.get("picture"), builder.sum(root.get("partner")))
-                .groupBy(root.get("name"));
+        criteria.multiselect(builder.count(root.get("name")))
+                .groupBy(root.get("name")) ;
 
         return entityManager.createQuery(criteria).getResultList();
     }

@@ -1,5 +1,6 @@
 package batchfour.teamtwo.renttrailservice.services.impl;
 
+import batchfour.teamtwo.renttrailservice.entities.Account;
 import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.repositories.PartnerRepository;
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
@@ -16,5 +17,11 @@ public class PartnerServiceImpl extends EntityServiceImpl<Partner, Integer> impl
     @Override
     protected JpaRepository<Partner, Integer> getRepository() {
         return partnerRepository;
+    }
+
+
+    @Override
+    public Partner findByAccount(Account account) {
+        return partnerRepository.findByAccount(account);
     }
 }

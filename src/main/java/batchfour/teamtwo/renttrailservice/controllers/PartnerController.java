@@ -7,6 +7,7 @@ import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.models.PartnerRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
+import batchfour.teamtwo.renttrailservice.models.UserRequest;
 import batchfour.teamtwo.renttrailservice.services.AccountService;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
@@ -50,12 +51,8 @@ public class PartnerController {
                                                 @RequestBody @Valid PartnerRequest model) {
 
         ModelMapper modelMapper = new ModelMapper();
-<<<<<<< Updated upstream
         Account account = accountService.findById(model.getAccount().getId());
         model.setId(id);
-=======
-
->>>>>>> Stashed changes
         Partner entity = service.findById(id);
 
         entity.setName(model.getName());
@@ -63,12 +60,7 @@ public class PartnerController {
         entity.setAddress(model.getAddress());
         entity.setTelp(model.getTelp());
         entity.setPicture(model.getPicture());
-<<<<<<< Updated upstream
         entity.setAccount(account);
-=======
-
-        entity = service.save(entity);
->>>>>>> Stashed changes
 
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
 
@@ -85,10 +77,22 @@ public class PartnerController {
         return ResponseMessage.success(data);
     }
 
+    @GetMapping("account/{id}")
+    public ResponseMessage<PartnerRequest> findByAccountId(@PathVariable Long id) {
+        Account account = accountService.findById(id);
+
+        Partner partner = service.findByAccount(account);
+        ModelMapper modelMapper = new ModelMapper();
+
+        PartnerRequest data = modelMapper.map(partner, PartnerRequest.class);
+
+        return ResponseMessage.success(data);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseMessage<PartnerRequest> removeById(@PathVariable Integer id) {
 
-        Partner entity = service.removeById(id);
+        Partner entity = service.findById(id);
 
         ModelMapper modelMapper = new ModelMapper();
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);

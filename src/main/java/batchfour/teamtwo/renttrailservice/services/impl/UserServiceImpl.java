@@ -1,5 +1,6 @@
 package batchfour.teamtwo.renttrailservice.services.impl;
 
+import batchfour.teamtwo.renttrailservice.entities.Account;
 import batchfour.teamtwo.renttrailservice.entities.User;
 import batchfour.teamtwo.renttrailservice.repositories.UserRepository;
 import batchfour.teamtwo.renttrailservice.services.UserService;
@@ -43,5 +44,10 @@ public class UserServiceImpl implements UserService {
                                  .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
         return repository.findAll(Example.of(entity, matcher), PageRequest.of(page, size, s));
+    }
+
+    @Override
+    public User findByAccount(Account account) {
+        return repository.findByAccount(account);
     }
 }

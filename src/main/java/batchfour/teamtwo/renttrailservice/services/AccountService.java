@@ -4,4 +4,5 @@ import batchfour.teamtwo.renttrailservice.entities.Account;
 
 public interface AccountService extends EntityService<Account, Long> {
 
+    public Account findByEmail(String email);
 }

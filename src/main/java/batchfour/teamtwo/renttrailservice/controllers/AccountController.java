@@ -2,6 +2,7 @@ package batchfour.teamtwo.renttrailservice.controllers;
 
 import batchfour.teamtwo.renttrailservice.entities.Account;
 import batchfour.teamtwo.renttrailservice.exceptions.ResourceNotFoundException;
+import batchfour.teamtwo.renttrailservice.models.AccountRequest;
 import batchfour.teamtwo.renttrailservice.repositories.AccountRepository;
 import batchfour.teamtwo.renttrailservice.models.AccountPrincipal;
 import batchfour.teamtwo.renttrailservice.validation.annotations.CurrentUser;
@@ -16,9 +17,9 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @GetMapping("/account/me")
-    @PreAuthorize("hasRole('ACCOUNT')")
-    public Account getCurrentAccount(@CurrentUser AccountPrincipal accountPrincipal) {
+    @GetMapping("account/me")
+    @PreAuthorize("hasRole('USER')")
+    public Account getCurrentAccount(@CurrentUser AccountRequest accountPrincipal) {
         return accountRepository.findById(accountPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "id", accountPrincipal.getId()));
     }

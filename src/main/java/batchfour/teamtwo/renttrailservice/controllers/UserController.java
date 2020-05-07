@@ -1,6 +1,7 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
 import batchfour.teamtwo.renttrailservice.entities.Account;
+import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.entities.User;
 import batchfour.teamtwo.renttrailservice.models.*;
 import batchfour.teamtwo.renttrailservice.repositories.AccountRepository;
@@ -65,6 +66,18 @@ public class UserController {
         User entity = service.finById(id);
         ModelMapper modelMapper = new ModelMapper();
         UserRequest data = modelMapper.map(entity, UserRequest.class);
+
+        return ResponseMessage.success(data);
+    }
+
+    @GetMapping("account/{id}")
+    public ResponseMessage<UserRequest> findByAccountId(@PathVariable Long id) {
+        Account account = accountService.findById(id);
+
+        User partner = service.findByAccount(account);
+        ModelMapper modelMapper = new ModelMapper();
+
+        UserRequest data = modelMapper.map(partner, UserRequest.class);
 
         return ResponseMessage.success(data);
     }

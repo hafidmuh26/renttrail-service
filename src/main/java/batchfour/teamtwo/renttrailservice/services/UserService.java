@@ -1,5 +1,7 @@
 package batchfour.teamtwo.renttrailservice.services;
 
+import batchfour.teamtwo.renttrailservice.entities.Account;
+import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -15,5 +17,7 @@ public interface UserService  {
     public User removeById(Integer id);
 
     public Page<User> findAll(User entity, int page, int size, Sort.Direction sort);
+
+    User findByAccount(Account account);
 
 }
