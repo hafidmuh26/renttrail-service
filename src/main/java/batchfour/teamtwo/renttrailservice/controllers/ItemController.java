@@ -2,7 +2,6 @@ package batchfour.teamtwo.renttrailservice.controllers;
 
 import batchfour.teamtwo.renttrailservice.entities.Item;
 import batchfour.teamtwo.renttrailservice.entities.Partner;
-import batchfour.teamtwo.renttrailservice.entities.Variety;
 import batchfour.teamtwo.renttrailservice.models.ItemRequest;
 import batchfour.teamtwo.renttrailservice.models.ItemSummaryRequest;
 import batchfour.teamtwo.renttrailservice.models.PageableList;
@@ -10,7 +9,6 @@ import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
 import batchfour.teamtwo.renttrailservice.services.ItemService;
 import batchfour.teamtwo.renttrailservice.services.ItemSummaryService;
 import batchfour.teamtwo.renttrailservice.services.PartnerService;
-import batchfour.teamtwo.renttrailservice.services.VarietyService;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -37,6 +35,10 @@ public class ItemController {
     @Autowired
     private ItemSummaryService summaryService;
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     @PostMapping
     public ResponseMessage<ItemRequest> add(@RequestBody @Valid ItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
@@ -55,14 +57,17 @@ public class ItemController {
         ModelMapper modelMapper = new ModelMapper();
 
         Item entity = itemService.findById(id);
-        Partner partner = partnerService.findById(request.getPartner().getId());
 
         entity.setName(request.getName());
         entity.setPrice(request.getPrice());
         entity.setBrand(request.getBrand());
         entity.setVariety(request.getVariety());
         entity.setPicture(request.getPicture());
+<<<<<<< Updated upstream
         entity.setPartner(partner);
+=======
+        entity.setPartner(partnerService.findById(request.getPartner().getId()));
+>>>>>>> Stashed changes
 
         entity = itemService.save(entity);
 

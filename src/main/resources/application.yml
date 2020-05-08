@@ -1,3 +1,4 @@
+application.data-dir: images
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

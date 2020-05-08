@@ -8,10 +8,19 @@ import java.nio.file.Path;
 
 public class PartnerImageRequest {
 
+    private Integer id;
     private String filename;
     private String url;
     private String type;
     private Long size;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getFilename() {
         return filename;
@@ -50,7 +59,7 @@ public class PartnerImageRequest {
         String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/outlet/" + id + "/images")
                 .path(name).toUriString();
-        PartnerImageRequest model =new PartnerImageRequest();
+        PartnerImageRequest model = new PartnerImageRequest();
         model.setFilename(name);
         model.setUrl(uri);
         model.setType(Files.probeContentType(path));

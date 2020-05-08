@@ -19,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class PartnerImageServiceImpl implements ImageService<Partner> {
 
@@ -35,9 +34,9 @@ public class PartnerImageServiceImpl implements ImageService<Partner> {
         Files.createDirectories(parentDir);
     }
 
-
     @Override
     public Path save(Partner entity, MultipartFile file) throws IOException {
+
         Path dir = parentDir.resolve(entity.getId().toString());
         Files.createDirectories(dir);
 

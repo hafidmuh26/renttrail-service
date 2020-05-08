@@ -25,7 +25,6 @@ import java.util.List;
 
 @RequestMapping("/partners")
 @RestController
-@Validated
 public class PartnerController {
 
     @Autowired
@@ -52,7 +51,11 @@ public class PartnerController {
 
         ModelMapper modelMapper = new ModelMapper();
         Account account = accountService.findById(model.getAccount().getId());
+<<<<<<< Updated upstream
         model.setId(id);
+=======
+
+>>>>>>> Stashed changes
         Partner entity = service.findById(id);
 
         entity.setOutlet(model.getOutlet());
@@ -61,6 +64,11 @@ public class PartnerController {
         entity.setTelp(model.getTelp());
         entity.setPicture(model.getPicture());
         entity.setAccount(account);
+<<<<<<< Updated upstream
+=======
+
+        entity = service.save(entity);
+>>>>>>> Stashed changes
 
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
 

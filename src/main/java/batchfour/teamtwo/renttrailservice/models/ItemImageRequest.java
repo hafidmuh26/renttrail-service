@@ -57,9 +57,9 @@ public class ItemImageRequest {
     public static ItemImageRequest from(Integer id, Path path) throws IOException {
         String name = path.getFileName().toString();
         String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                        .path("/items/" + id + "/images")
-                        .path(name).toUriString();
-        ItemImageRequest model =new ItemImageRequest();
+                .path("/items/" + id + "/images")
+                .path(name).toUriString();
+        ItemImageRequest model = new ItemImageRequest();
         model.setFilename(name);
         model.setUrl(uri);
         model.setType(Files.probeContentType(path));

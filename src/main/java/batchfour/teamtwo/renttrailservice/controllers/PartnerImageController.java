@@ -1,6 +1,5 @@
 package batchfour.teamtwo.renttrailservice.controllers;
 
-
 import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.models.PartnerImageRequest;
 import batchfour.teamtwo.renttrailservice.models.ResponseMessage;
@@ -50,7 +49,7 @@ public class PartnerImageController {
 
         String mediaTypes = URLConnection.guessContentTypeFromName(resource.getFilename());
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mediaTypes))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
 
