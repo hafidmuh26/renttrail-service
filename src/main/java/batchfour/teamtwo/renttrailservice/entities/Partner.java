@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 public class Partner extends AbstractEntity{
 
-    private String name;
+    private String outlet;
     private String owner;
     private String telp;
     private String address;
@@ -18,13 +18,21 @@ public class Partner extends AbstractEntity{
     public Partner() {
     }
 
-    public Partner(String name, String owner, String telp, String address, String picture, Account account) {
-        this.name = name;
+    public Partner(String outlet, String owner, String telp, String address, String picture, Account account) {
+        this.outlet = outlet;
         this.owner = owner;
         this.telp = telp;
         this.address = address;
         this.picture = picture;
         this.account = account;
+    }
+
+    public String getOutlet() {
+        return outlet;
+    }
+
+    public void setOutlet(String outlet) {
+        this.outlet = outlet;
     }
 
     public String getOwner() {
@@ -33,30 +41,6 @@ public class Partner extends AbstractEntity{
 
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getTelp() {
@@ -75,4 +59,19 @@ public class Partner extends AbstractEntity{
         this.address = address;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

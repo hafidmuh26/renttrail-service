@@ -38,7 +38,7 @@ public class PartnerController {
     public ResponseMessage<PartnerRequest> save(@RequestBody @Valid PartnerRequest model) {
         Account account = accountService.findById(model.getAccount().getId());
 
-        Partner entity = service.save(new Partner(model.getName(), model.getOwner() ,model.getTelp(), model.getAddress(),model.getPicture(), account));
+        Partner entity = service.save(new Partner(model.getOutlet(), model.getOwner() ,model.getTelp(), model.getAddress(),model.getPicture(), account));
 
         ModelMapper modelMapper = new ModelMapper();
         PartnerRequest data = modelMapper.map(entity, PartnerRequest.class);
@@ -55,7 +55,7 @@ public class PartnerController {
         model.setId(id);
         Partner entity = service.findById(id);
 
-        entity.setName(model.getName());
+        entity.setOutlet(model.getOutlet());
         entity.setOwner(model.getOwner());
         entity.setAddress(model.getAddress());
         entity.setTelp(model.getTelp());
@@ -102,7 +102,7 @@ public class PartnerController {
 
     @GetMapping
     public ResponseMessage<PageableList<PartnerRequest>> findAll(
-            @RequestParam(required = false) String name, String telp, String address,
+            @RequestParam(required = false) String outlet, String telp, String address,
             String picture, Account account, String owner,
             @RequestParam(defaultValue = "asc") String sort,
             @RequestParam(defaultValue = "0") int page,
@@ -112,7 +112,7 @@ public class PartnerController {
         size = 100;
     }
 
-        Partner entity = new Partner(name, owner, telp,address, picture, account);
+        Partner entity = new Partner(outlet, owner, telp,address, picture, account);
         Sort.Direction direction = Sort.Direction
                 .fromOptionalString(sort.toUpperCase())
                 .orElse(Sort.Direction.ASC);

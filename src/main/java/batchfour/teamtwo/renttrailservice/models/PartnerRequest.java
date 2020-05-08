@@ -12,7 +12,7 @@ public class PartnerRequest {
     @MinLength(3)
     @MaxLength(20)
     @NotBlank(message = "Name can't banlk!")
-    private String name;
+    private String outlet;
 
     private String owner;
 
@@ -29,9 +29,9 @@ public class PartnerRequest {
     public PartnerRequest() {
     }
 
-    public PartnerRequest(Integer id, String name, String owner, String telp, String address, String picture, AccountRequest account) {
+    public PartnerRequest(Integer id, String outlet, String owner, String telp, String address, String picture, AccountRequest account) {
         this.id = id;
-        this.name = name;
+        this.outlet = outlet;
         this.telp = telp;
         this.address = address;
         this.picture = picture;
@@ -42,32 +42,24 @@ public class PartnerRequest {
         return owner;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getOutlet() {
+        return outlet;
+    }
+
+    public void setOutlet(String outlet) {
+        this.outlet = outlet;
+    }
+
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    public AccountRequest getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountRequest account) {
-        this.account = account;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getTelp() {
@@ -86,11 +78,19 @@ public class PartnerRequest {
         this.address = address;
     }
 
-    public Integer getId() {
-        return id;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public AccountRequest getAccount() {
+        return account;
+    }
+
+    public void setAccount(AccountRequest account) {
+        this.account = account;
     }
 }
