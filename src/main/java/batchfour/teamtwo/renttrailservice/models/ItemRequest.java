@@ -13,12 +13,8 @@ public class ItemRequest {
     public ItemRequest() {
     }
 
-<<<<<<< Updated upstream
-    public ItemRequest(Integer id, String name, Integer price, String brand, String variety, String picture, PartnerRequest partner) {
-=======
     public ItemRequest(Integer id, String name, Integer price, String brand, String variety,
                        String picture, PartnerRequest partner) {
->>>>>>> Stashed changes
         this.id = id;
         this.name = name;
         this.price = price;

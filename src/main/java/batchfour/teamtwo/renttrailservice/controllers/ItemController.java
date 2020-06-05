@@ -35,10 +35,6 @@ public class ItemController {
     @Autowired
     private ItemSummaryService summaryService;
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     @PostMapping
     public ResponseMessage<ItemRequest> add(@RequestBody @Valid ItemRequest request) {
         ModelMapper modelMapper = new ModelMapper();
@@ -63,11 +59,7 @@ public class ItemController {
         entity.setBrand(request.getBrand());
         entity.setVariety(request.getVariety());
         entity.setPicture(request.getPicture());
-<<<<<<< Updated upstream
-        entity.setPartner(partner);
-=======
         entity.setPartner(partnerService.findById(request.getPartner().getId()));
->>>>>>> Stashed changes
 
         entity = itemService.save(entity);
 
