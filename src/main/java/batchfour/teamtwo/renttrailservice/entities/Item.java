@@ -18,10 +18,6 @@ public class Item extends AbstractEntity {
     private String picture;
 
     @ManyToOne
-<<<<<<< Updated upstream
-=======
-    @JoinColumn(nullable = false)
->>>>>>> Stashed changes
     private Partner partner;
 
     public Item() {
