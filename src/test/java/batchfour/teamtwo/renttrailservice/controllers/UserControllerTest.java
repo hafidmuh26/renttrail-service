@@ -1,3 +1,4 @@
+package batchfour.teamtwo.renttrailservice.controllers;
 
 import batchfour.teamtwo.renttrailservice.entities.Partner;
 import batchfour.teamtwo.renttrailservice.entities.User;
@@ -73,18 +74,18 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.data.list[*].id").isNotEmpty());
     }
 
-    @Test
-    public void shouldHaveDeleteUser() throws Exception {
-        mvc.perform(delete("/users/2"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.data.name").value("Bambang"))
-                .andExpect(jsonPath("$.data.nik").value("3330000123495"))
-                .andExpect(jsonPath("$.data.noHp").value("0823145"))
-                .andExpect(jsonPath("$.data.address").value("Jl. Merbabu No.769"))
-                .andExpect(jsonPath("$.data.gender").value("Female"))
-                .andExpect(jsonPath("$.data.picture").value("\"http://localhost:8080/users/2/imagesWhatsApp%20Image%202020-03-09%20at%2017.51.05.jpeg"));
-    }
+    // @Test
+    // public void shouldHaveDeleteUser() throws Exception {
+    //     mvc.perform(delete("/users/2"))
+    //             .andExpect(status().isOk())
+    //             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+    //             .andExpect(jsonPath("$.data.name", is("Bambang")))
+    //             .andExpect(jsonPath("$.data.nik", is("3330000123495")))
+    //             .andExpect(jsonPath("$.data.noHp", is("0823145")))
+    //             .andExpect(jsonPath("$.data.address", is("Jl. Merbabu No.769")))
+    //             .andExpect(jsonPath("$.data.gender", is("Female")))
+    //             .andExpect(jsonPath("$.data.picture", is("\"http://localhost:8080/users/2/imagesWhatsApp%20Image%202020-03-09%20at%2017.51.05.jpeg")));
+    // }
 
     public static String asJsonString(final Object obj) {
         try {
